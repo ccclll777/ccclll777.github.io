@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="操作系统课程设计Project3（网络和分布式系统）系统设计与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems">
+<meta property="og:url" content="http://yoursite.com/2020/01/05/CurriculumDesign-OS-proj4/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="操作系统课程设计Project3（网络和分布式系统）系统设计与实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101503727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101507723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101524445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101528197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101541101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101544195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101555562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101615163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101628219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-01-05T07:37:34.000Z">
+<meta property="article:modified_time" content="2020-07-06T08:59:50.000Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/05/CurriculumDesign-OS-proj4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems | ccclll777's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="ccclll777's blogs" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a href="https://github.com/ccclll777" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ccclll777's blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/CurriculumDesign-OS-proj4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ccclll777">
+      <meta itemprop="description" content="胸怀猛虎 细嗅蔷薇">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ccclll777's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-05 15:37:34" itemprop="dateCreated datePublished" datetime="2020-01-05T15:37:34+08:00">2020-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-06 16:59:50" itemprop="dateModified" datetime="2020-07-06T16:59:50+08:00">2020-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">课程设计</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>操作系统课程设计Project3（网络和分布式系统）系统设计与实现</p>
+<a id="more"></a>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/ccclll777/nachos_os_design" target="_blank" rel="noopener">https://github.com/ccclll777/nachos_os_design</a><br><strong>如果觉得有用，请点个star</strong></p>
+<h2 id="初探与网络系统有关的类"><a href="#初探与网络系统有关的类" class="headerlink" title="初探与网络系统有关的类"></a>初探与网络系统有关的类</h2><p>有关网络上数据传输的类为nachos.machine.Networklink和nachos.network.postoffice,在两者的配合下，进行数据包的发送与接收。<br><strong>【1】Networklink类</strong><br>同一个机器上运行的不同nachos实例可以使用networklink类通过网络相互通信。<br>其中有多个线程进行线程之间的同步，来进行网络消息的传输。<br>在接收数据包时：<br>如果已经收到消息时，会会进行wait（），直到允许接收数据包时（某个变量为null），会进行notify（）。<br>而底层数据包的收发是经过java的DatagramSocket类进行的，将接收到的消息通过DatagramPacket类拷贝到内存中的某个地方。<br>在发送数据包时：<br>会构造一个DatagramPacket的对象，然后使用DatagramSocket进行数据包的发送。<br>数据包的发送和接受是通过多线程，以及中断驱动的，并且在发送消息和接收消息的过程中，通过synchronized保证临界区的互斥。在通过DatagramSocket收到消息后，某个线程得到了自己需要的数据，就开始构造数据包，然后将其存到某个变量中，当postoffice接收消息时，会将这个变量的内容置为空，然后启用某个线程，继续接收数据包。<br>在发送数据时，如果有从postoffice传来的数据，会存到某个变量中，然后如果这个变量不为空，某个线程就会将数据通过DatagramSocket发送出去，然后初始化变量为null，等待下一个消息。<br><strong>【2】PostOffice类</strong><br>PostOffice类使用Networklink类中的方法进行消息的收发。<br>它给每一个端口都准备一个消息队列，在收到消息时，会将添加到对应端口的队列中，然后可以唤醒等待读取消息的进程。<br>在接收消息时，会指定端口，获取到它队列中的消息，如果队列此时为空，线程将会休眠，直到接收到消息。（经过修改，在接收消息时，如果对应的消息队列为空，不会将线程阻塞，而是返回空，等待下一次遍历）<br>当一个包被发送后，会使用信号量，将线程停止，直到此数据包被接收或者被丢弃。<br>当接收消息时，如果没有消息，则会使用信号量将线程停止，直到数据包到达，在让线程继续执行。</p>
+<p>之后会在此基础上构建网络系统的传输工作</p>
+<h2 id="Project4-Networks-and-Distributed-Systems（网络和分布式系统）系统设计与实现"><a href="#Project4-Networks-and-Distributed-Systems（网络和分布式系统）系统设计与实现" class="headerlink" title="Project4:Networks and Distributed Systems（网络和分布式系统）系统设计与实现"></a>Project4:Networks and Distributed Systems（网络和分布式系统）系统设计与实现</h2><p><strong>【1】总体描述</strong><br>我们将为您提供一些低级的网络通信设施；您将在这些设施之上构建一个更好的抽象，然后将该抽象用于构建分布式聊天程序。<br>网络中的每个节点都将作为nachos的实例来实现。因此，您将为每个网络节点运行一个jvm；这些jvm将在同一台实际机器上运行，即使我们假装它们分布在网络上。 </p>
+<p>每个nachos“节点”都有一个到网络的连接，该连接是使用UDP socket实现的。 nachos.machine.networklink类为您提供此功能。 </p>
+<p>machine/NetworkLink.java  物理网络硬件的仿真，网络接口与控制台类似，只是传输单元是一个包而不是字符。网络在节点之间提供有序、不可靠的有限大小数据包传输。此类提供send（）和receive（）消息以在网络上发送和接收数据包。由于此类模拟网络设备驱动程序，因此必须提供保护对网络链接的访问并确保其正确使用的机制。网络链路在接收数据包和传输数据包后生成中断；您将使用这些中断在低级网络链路接口上实现高级通信机制。</p>
+<p>machine/Packet.java 一个网络传输单元  一个包的最大大小由 machine.Packet.maxPacketLength给出，它恰好是32字节。 每个包包括4byte的头文件，每个包都包含一个4字节的头（详细信息请参见packet.java）和一个28字节的payload。使用常量machine.packet.maxcontentslength来表示代码中有效payload的大小（即，不要使用值为28字节的硬代码）。 </p>
+<p>post office提供了比原始网络链接更方便的通信抽象。 它在网络链路的节点到节点通信之上提供用户到用户的通信，但不提供可靠的消息传递。在这个项目中，您必须在 PostOffice和网络链接抽象之上实现其他层。<br><strong>【2】task1:实现两个网络系统调用accept（）和connect（）</strong><br><strong>【2.1】要求分析</strong><br>它们在连接端点之间提供可靠的、面向连接的字节流通信。连接端点是与端口号组合在一起的链接地址。用户程序通过使用远程网络链接ID（也称为主机ID）和端口号调用connect（）来连接到远程节点，远程节点必须调用accept（）系统调用来接受连接；系统调用采用可进行连接的本地端口号。</p>
+<p>在sockets上实现read（）和write（）必须提供无消息大小限制的全双工、可靠的字节流通信。这意味着数据包可以同时在连接上双向流动。<br>需要使用滑动窗口协议。</p>
+<p>因为连接是全双工的，所以每个通信方向都需要一个单独的滑动窗口。此外，每个连接都应保持自己的滑动窗口。这意味着，如果到同一端口有多个连接，则一次可以在每个连接（每个方向）上发送多达16个未确认的数据包。</p>
+<p>连接上的每个单向数据流都需要发送方的一个不同的发送缓冲区和接收方的一个不同的接收缓冲区。每个发送缓冲区可以任意增大，但每个接收缓冲区可以容纳不超过16个包。</p>
+<p>读/写系统调用不应等待来自远程主机的数据包。如果端口上没有可读取的数据，则read立即返回。写入将端口上的数据排队，然后返回而不等待确认。（但是，在建立连接之前，连接将被阻塞。）<br>nachos传输协议规范：</p>
+<p>一个端点首先调用connect（）系统调用。此端点称为活动端点。另一个端点（被动式端点）上的进程稍后必须调用accept（）系统调用。当调用这些系统调用时，底层协议执行双向握手。当用户进程调用connect（）系统调用时，活动端点发送同步数据包（syn）。这将导致创建挂起的连接。在被动端点的用户进程调用accept（）系统调用之前，此挂起连接的状态必须存储在接收器上。调用accept（）时，被动端向主动端发送一个syn确认数据包（syn/ack），并建立连接。 </p>
+<p>一旦建立了连接，双方就可以发送数据包。每个包都有一个唯一的32位序列号。在接收到数据packet时，接收器将确认packet（ack）发回给发送者。与tcp一样，nachos传输协议使用滑动窗口。但是，与tcp不同的是，窗口的大小总是固定在16个数据包。发送方有责任确保其发送的未确认数据包不超过16个。为了保证最终接收到所有数据包，发送方必须定期重新传输已发送但尚未确认的任何数据包。重传过程的频率应为每20000个时钟周期一次。 </p>
+<p><strong>【2.2】实现方式</strong><br>由于我们要实现网络协议，所以我们需要研究数据包的构成，构造一个packet类，构造对应的包的内容，nachos的传输协议给出了数据包的格式。</p>
+<p>我们还需要一个特殊的文件类，这个文件类记录了发送方和接受方的地址信息，以便我们在网络传输中，可以根据不同的发送方来定位不同的文件，实现传输工作，并且在读写时，不是简单的内存操作，需要使用对应的方法接受指定端口的数据，或者向对应的端口发送数据。<br>然后需要实现端口的分发，为每一个连接分发不同的端口。而消息的接受和发送，我们只需要将消息传到发送消息的线程就能执行消息的发送，接收消息时从消息队列接收消息即可。</p>
+<p><strong>（1）实现固定的数据包格式Packet类</strong><br>nachos已经提供了基本的数据包类型，我们需要根据nachos的传输协议规范构造相对应的数据包。<br>我们需要记录每个数据包的源地址和目标地址，并且由于要实现滑动窗口协议，我们需要给每一个数据包一个序列号，以及不同的状态。我们需要根据传输协议定义不同的状态位。<br><img src="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（2）connection（）实现网络所使用的文件系统，传输和接受对应的网络文件。</strong><br>我们需要继承Openfile类，然后重载文件的read和write操作。<br>read操作需要获取某个指定端口的数据，获取数据时，如果对应的端口没有数据传回，则会阻塞（修改之后变为，会返回空，然后客户端对标记进行处理）。在接收到数据之后，会将数据复制到目标数组，由于是滑动窗口协议，所以还要更新序列号。<br>write操作需要读取内存中的某一段数据，然后将其构造成数据包，发送到对应的目的地<br>注：底层数据包的接受和发送依赖于java的DatagramSocket类。<br><img src="https://img-blog.csdnimg.cn/20200427101503727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427101507723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（3）系统调用connect（）和accept（）</strong><br>根据nachos操作系统的传输协议实现，底层协议需要执行双向握手。<br>当用户程序A要主动连接用户程序B时，需要调用connect的系统调用，指定B的ip地址和端口，内核应该给A分配对应的文件描述符，文件类型为connection类型（为网络创建的文件类型），然后构造对应的数据包（状态为syn），发送给用户程序B，用户程序在accept（）到指定端口的syn数据包时，会将此包的端口信息添加，然后分配一个文件描述符，文件类型也为connection类，然后确实对方是否要连接自己，如果是正确的连接，则B会构造一个synack的数据包，发送给A作为回应，A在收到synack的回复后，会向B发送确认收到的ack数据包，之后建立连接，返回文件描述符socket，B在收到ack确认后，也会返回对应的文件描述符，表示连接已经建立。到此，A与B正式建立连接，可以相互发送数据包。<br>（在使用postoffice发送和接受数据包时，通过信号量控制，数据包的收发，当收到数据包时，执行P，则继续执行networkLink的接收。当发送数据包时，直到此数据包被丢弃或者接受才会发送下一个数据包）<br><img src="https://img-blog.csdnimg.cn/20200427101524445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427101528197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（4）有关出错重传的设计</strong><br>在packet的发送类中，定义一个数据结构，存储未收到确认的消息，在接收消息时，会根据收到数据包的序列号，以及状态码，判断是否数据包，还是确认收到数据的数据包。如果是确认收到数据的数据包，则会将刚刚发送的数据，从未收到消息确认的队列中删除，如果是其他需要进行确认的数据包，则向来源发送确认收到数据包的消息。<br>会在packet的发送类中，单独开启一个线程，将未收到确认的数据包重新发送。<br><img src="https://img-blog.csdnimg.cn/20200427101541101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200427101544195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>而在消息包的收发时，需要根据数据包的序列号，以及状态判断它是数据包，或者确认收到数据的数据包，如果是确认收到数据的数据包，则将那数据从为发送列表中删除，如果是其他数据包，则发送确认收到数据包的消息。<br><img src="https://img-blog.csdnimg.cn/20200427101555562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【3】task2:实现网络聊天应用程序</strong><br><strong>【3.1】要求分析</strong><br>通过使用消息传递的系统调用在多个（至少3个）用户之间实现“网络聊天”应用程序，演示您的消息传递系统调用的工作。</p>
+<p>你应该编写两个程序：一个聊天服务器（chat server.c）和一个聊天客户端（chat.c）。服务器在一个节点上运行，接受来自聊天客户端的连接。聊天客户端连接到聊天服务器并接受来自控制台的用户输入。用户键入一行文本后，该行将传输到聊天服务器。然后，服务器将消息广播给与之连接的所有客户端。然后，聊天客户端接收到的每条消息都应显示在控制台上。用户可以动态连接和断开与聊天室的连接。<br><strong>【3.2】实现方式</strong><br>对于chatserver，需要循环进行accept，看是否有客户端请求建立连接，如果有连接，则建立连接，并且保存连接的标记。<br>每次循环都会判读是否收到数据，如果收到的数据，会将收到的数据进行广播。<br><img src="https://img-blog.csdnimg.cn/20200427101615163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>客户端程序chat.c，先请求服务器连接，然后返回连接的socket，之后不断的读取控制台的输出，如果读到了，就将其发送给服务端，然后进行广播。<br><img src="https://img-blog.csdnimg.cn/20200427101628219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/04/CurriculumDesign-OS-proj3/" rel="prev" title="操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory">
+      <i class="fa fa-chevron-left"></i> 操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/10/Arithmetic-LeetCode-Tree-Easy/" rel="next" title="leetcode刷题——树（简单）">
+      leetcode刷题——树（简单） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初探与网络系统有关的类"><span class="nav-number">2.</span> <span class="nav-text">初探与网络系统有关的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project4-Networks-and-Distributed-Systems（网络和分布式系统）系统设计与实现"><span class="nav-number">3.</span> <span class="nav-text">Project4:Networks and Distributed Systems（网络和分布式系统）系统设计与实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ccclll777</p>
+  <div class="site-description" itemprop="description">胸怀猛虎 细嗅蔷薇</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccclll777" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccclll777" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sdu945860882@gmail.com" title="E-Mail → mailto:sdu945860882@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.weibo.com/6732062654" title="Weibo → https:&#x2F;&#x2F;www.weibo.com&#x2F;6732062654" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/baidu_41871794" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;baidu_41871794" rel="noopener" target="_blank"><i class="gratipay fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ccclll777</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">344k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:13</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

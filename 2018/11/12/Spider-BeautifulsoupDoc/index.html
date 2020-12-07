@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="摘要Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python3中BeautifulSoup4库的使用">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/Spider-BeautifulsoupDoc/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="摘要Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111201211739.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111201308904.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111201553431.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111201921613.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111202256959.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111202820628.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111203241618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111232923922.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111233028833.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111233324391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181111233708248.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112143634824.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2018111214393753.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2018111214442739.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112144843161.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112145159530.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112145956535.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112150517918.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112150704814.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181112150827192.png">
+<meta property="article:published_time" content="2018-11-12T01:26:18.000Z">
+<meta property="article:modified_time" content="2020-07-06T09:00:12.000Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="网页解析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181111201211739.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/11/12/Spider-BeautifulsoupDoc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python3中BeautifulSoup4库的使用 | ccclll777's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="ccclll777's blogs" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a href="https://github.com/ccclll777" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ccclll777's blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/Spider-BeautifulsoupDoc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ccclll777">
+      <meta itemprop="description" content="胸怀猛虎 细嗅蔷薇">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ccclll777's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python3中BeautifulSoup4库的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-12 09:26:18" itemprop="dateCreated datePublished" datetime="2018-11-12T09:26:18+08:00">2018-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-06 17:00:12" itemprop="dateModified" datetime="2020-07-06T17:00:12+08:00">2020-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">爬虫学习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。</p>
+<a id="more"></a>
+
+<p>Beautiful Soup自动将输入文档转换为Unicode编码，输出文档转换为utf-8编码。你不需要考虑编码方式，除非文档没有指定一个编码方式，这时，Beautiful Soup就不能自动识别编码方式了。然后，你仅仅需要说明一下原始编码方式就可以了。<br>Beautiful Soup已成为和lxml、html6lib一样出色的python解释器，为用户灵活地提供不同的解析策略或强劲的速度。</p>
+<h2 id="标签选择器"><a href="#标签选择器" class="headerlink" title="标签选择器"></a>标签选择器</h2><ul>
+<li>选择元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.title)#选择title标签中的内容</span><br><span class="line">print(type(soup.title))#title标签的类型</span><br><span class="line">print(soup.head)#head标签中的内容</span><br><span class="line">print(soup.p)#第一个p标签中的内容</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111201211739.png" alt="在这里插入图片描述"><br>soup.标签名可以选择所需要的标签中的内容，返回结果是Tag类型。它查找的是在所有内容中的第一个符合要求的标签，例如上面的<p>的内容。<br>如果要查询所有的标签，在后面进行介绍。</p>
+<ul>
+<li>获取名称</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.title.name)</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111201308904.png" alt="在这里插入图片描述"><br>这里获取到了标签的名称。</p>
+<ul>
+<li>获取属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print (soup.p.attrs[&#39;name&#39;])</span><br><span class="line">print(soup.p[&#39;name&#39;])</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111201553431.png" alt="在这里插入图片描述"><br>在这里，我们把 p 标签的name属性的值打印出来了，name的值为dromouse，上面两种使用方法是等价的。</p>
+<ul>
+<li>获取内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print (soup.p.string)</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111201921613.png" alt="
+"></p>
+<p>使用标签的.string方法可以轻松获得当前标签中的内容。</p>
+<ul>
+<li>嵌套选择</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print (soup.head.title.string)</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111202256959.png" alt="在这里插入图片描述"><br>可以通过嵌套几个不同的标签，层层迭代来获取他的内容，属性，名称。</p>
+<ul>
+<li>获取子节点</li>
+</ul>
+<p>.contents方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.p.contents)</span><br></pre></td></tr></table></figure>
+<p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20181111202820628.png" alt="在这里插入图片描述"><br>.content 属性可以将tag的子节点以列表的方式输出，输出方式为列表，我们可以用列表索引来获取它的某一个元素，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">print soup.head.contents[0]</span><br><span class="line">#返回结果：&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>.children方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print soup.head.children</span><br><span class="line">#返回结果：&lt;listiterator object at 0x7f71457f5710&gt;</span><br></pre></td></tr></table></figure>
+
+<p>他返回一个迭代器对象，可以通过遍历获得其中的子节点，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.head.children)</span><br><span class="line">for child in  soup.body.children:</span><br><span class="line">    print (child)</span><br></pre></td></tr></table></figure>
+<p>这样就得到了她的所有子节点：<br><img src="https://img-blog.csdnimg.cn/20181111203241618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>获取子孙节点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line"></span><br><span class="line">for child in soup.body.descendants:</span><br><span class="line">    print (child)</span><br></pre></td></tr></table></figure>
+<p>以上代码可以获取到head标签的所有子孙节点中的内容。<br>.descendants返回的是一个迭代器的类型，可以通过遍历输出所有的结果。</p>
+<ul>
+<li>获取多个内容<br>.strings  获取多个内容，不过需要遍历获取，比如下面的例子</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line"></span><br><span class="line">for string in soup.strings:</span><br><span class="line">    print(repr(string))</span><br></pre></td></tr></table></figure>
+<p>返回结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;The Dormouse&#39;s story&quot;</span><br><span class="line">&#39;\n&#39;</span><br><span class="line">&#39;\n&#39;</span><br><span class="line">&quot;The Dormouse&#39;s story&quot;</span><br><span class="line">&#39;\n&#39;</span><br><span class="line">&#39;Once upon a time there were three little sisters; and their names were\n&#39;</span><br><span class="line">&#39;,\n&#39;</span><br><span class="line">&#39;Lacie&#39;</span><br><span class="line">&#39; and\n&#39;</span><br><span class="line">&#39;Tillie&#39;</span><br><span class="line">&#39;;\nand they lived at the bottom of a well.&#39;</span><br><span class="line">&#39;\n&#39;</span><br><span class="line">&#39;...&#39;</span><br><span class="line">&#39;\n&#39;</span><br></pre></td></tr></table></figure>
+<p>发现将所有标签的内容返回了出来，但是也有许多空的标签，也会进行返回，如果想过滤空行，可以使用.stripped_strings 函数。</p>
+<p>.stripped_strings  输出的字符串中可能包含了很多空格或空行,使用 .stripped_strings 可以去除多余空白内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line"></span><br><span class="line">for string in soup.stripped_strings:</span><br><span class="line">    print(repr(string))</span><br></pre></td></tr></table></figure>
+<p>返回结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;The Dormouse&#39;s story&quot;</span><br><span class="line">&quot;The Dormouse&#39;s story&quot;</span><br><span class="line">&#39;Once upon a time there were three little sisters; and their names were&#39;</span><br><span class="line">&#39;,&#39;</span><br><span class="line">&#39;Lacie&#39;</span><br><span class="line">&#39;and&#39;</span><br><span class="line">&#39;Tillie&#39;</span><br><span class="line">&#39;;\nand they lived at the bottom of a well.&#39;</span><br><span class="line">&#39;...&#39;</span><br></pre></td></tr></table></figure>
+<p>这样就避免了空行和空格的出现。</p>
+<ul>
+<li>获取父节点<br>.parent 属性 获取此标签的上一层标签</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">p &#x3D; soup.p</span><br><span class="line">print (p.parent.name)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181111232923922.png" alt="在这里插入图片描述"><br>body是p标签的父标签，所以返回为body</p>
+<ul>
+<li>获取祖先节点<br>.parents 属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">content &#x3D; soup.head.title.string</span><br><span class="line">for parent in  content.parents:</span><br><span class="line">    print (parent.name)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181111233028833.png" alt="在这里插入图片描述"><br>通过元素的 .parents 属性可以递归得到元素的所有父辈节点</p>
+<ul>
+<li>获取兄弟节点<br>.next_sibling 获取此标签后面的节点<br>.previous_sibling  获取此标签前面的节点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print (soup.p.next_sibling)</span><br><span class="line">#       实际该处为空白</span><br><span class="line">print (soup.p.prev_sibling)</span><br><span class="line">#None   没有前一个兄弟节点，返回 None</span><br><span class="line">print (soup.p.next_sibling.next_sibling)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181111233324391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>兄弟节点可以理解为和本节点处在统一级的节点，.next_sibling 属性获取了该节点的下一个兄弟节点，.previous_sibling 则与之相反，如果节点不存在，则返回 None</p>
+<p>注意：实际文档中的tag的 .next_sibling 和 .previous_sibling 属性通常是字符串或空白，因为空白或者换行也可以被视作一个节点，所以得到的结果可能是空白或者换行</p>
+<ul>
+<li>获取前后节点<br>.next_element 获取此标签后一个节点<br>.previous_element 获取此标签前一个节点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print (soup.head.next_element)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181111233708248.png" alt="在这里插入图片描述"></p>
+<p>与 .next_sibling  .previous_sibling 不同，它并不是针对于兄弟节点，而是在所有节点，不分层次。<br>比如 head 节点为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br></pre></td></tr></table></figure>
+<p>那么它的下一个节点便是 title，它是不分层次关系的</p>
+<ul>
+<li>获取所有前后节点<br>.next_elements  获取后面的所有节点<br>.previous_elements获取前面的所有节点 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">for element in soup.body.next_elements:</span><br><span class="line">    print(repr(element))</span><br></pre></td></tr></table></figure>
+<p>通过 .next_elements 和 .previous_elements 的迭代器就可以向前或向后访问文档的解析内容,就好像文档正在被解析一样</p>
+<h2 id="标准选择器"><a href="#标准选择器" class="headerlink" title="标准选择器"></a>标准选择器</h2><h2 id="find-all-name-attrs-recursive-text-kwargs"><a href="#find-all-name-attrs-recursive-text-kwargs" class="headerlink" title="find_all( name , attrs , recursive , text , **kwargs )"></a>find_all( name , attrs , recursive , text , **kwargs )</h2><p>可以根据标签名，属性，内容查找文档。</p>
+<ul>
+<li>name 参数<br>可以传入一个标签名，会返回该标签名下的内容。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.find_all(&#39;a&#39;))</span><br><span class="line">print(type(soup.find_all(&#39;p&#39;)))</span><br></pre></td></tr></table></figure>
+返回结果为：<br><img src="https://img-blog.csdnimg.cn/20181112143634824.png" alt="在这里插入图片描述"></li>
+</ul>
+<p>也可以通过层层嵌套的方法获取输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">for p in soup.find_all(&#39;p&#39;):</span><br><span class="line">    print(p.find_all(&#39;a&#39;))</span><br></pre></td></tr></table></figure>
+<p>这样就获取到了p标签中a标签的内容。<br><img src="https://img-blog.csdnimg.cn/2018111214393753.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>attrs参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.find_all(attrs&#x3D;&#123;&#39;name&#39;:&#39;dromouse&#39;&#125;))</span><br><span class="line">#也可以使用以下方法，输出结果相同</span><br><span class="line">print(soup.find_all(class_&#x3D;&#39;title&#39;&#125;))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/2018111214442739.png" alt="
+"><br>可以看到它输出了name属性为dormouse的标签。<br>注意：如果使用print(soup.find_all(class_=’title’}))的class属性是，后面需要加一个’_’，因为class属性是一个特殊的属性。</p>
+<ul>
+<li>text属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.find_all(text&#x3D;&#39;Lacie&#39;))</span><br></pre></td></tr></table></figure>
+<p>返回结果：<img src="https://img-blog.csdnimg.cn/20181112144843161.png" alt="在这里插入图片描述"><br>他返回的是它里面的内容，但是在做元素查找时没有什么用处，但是做元素匹配时会有用处。</p>
+<ul>
+<li>limit 参数<br>find_all() 方法返回全部的搜索结构,如果文档树很大那么搜索会很慢.如果我们不需要全部结果,可以使用 limit 参数限制返回结果的数量.效果与SQL中的limit关键字类似,当搜索到的结果数量达到 limit 的限制时,就停止搜索返回结果.</li>
+</ul>
+<p>文档树中有3个tag符合搜索条件,但结果只返回了2个,因为我们限制了返回数量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">soup.find_all(&quot;a&quot;, limit&#x3D;2)</span><br><span class="line"># [&lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; id&#x3D;&quot;link1&quot;&gt;Elsie&lt;&#x2F;a&gt;,</span><br><span class="line">#  &lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="find-name-attrs-recursive-text-kwargs"><a href="#find-name-attrs-recursive-text-kwargs" class="headerlink" title="find( name , attrs , recursive , text , **kwargs )"></a>find( name , attrs , recursive , text , **kwargs )</h2><p>它与 find_all() 方法唯一的区别是 find_all() 方法的返回结果是值包含一个元素的列表,而 find() 方法直接返回结果，也就是说，find方法只会返回一个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.find(&#39;p&#39;))</span><br></pre></td></tr></table></figure>
+<p>返回结果为：<br><img src="https://img-blog.csdnimg.cn/20181112145159530.png" alt="在这里插入图片描述"><br>只返回了一条结果。</p>
+<h2 id="其他用法一样的标准选择器"><a href="#其他用法一样的标准选择器" class="headerlink" title="其他用法一样的标准选择器"></a>其他用法一样的标准选择器</h2><p> （1）find_parents()  find_parent()</p>
+<p>find_all() 和 find() 只搜索当前节点的所有子节点,孙子节点等. find_parents() 和 find_parent() 用来搜索当前节点的父辈节点,搜索方法与普通tag的搜索方法相同,搜索文档搜索文档包含的内容</p>
+<p>（2）find_next_siblings()  find_next_sibling()</p>
+<p>这2个方法通过 .next_siblings 属性对当 tag 的所有后面解析的兄弟 tag 节点进行迭代, find_next_siblings() 方法返回所有符合条件的后面的兄弟节点,find_next_sibling() 只返回符合条件的后面的第一个tag节点</p>
+<p>（3）find_previous_siblings()  find_previous_sibling()</p>
+<p>这2个方法通过 .previous_siblings 属性对当前 tag 的前面解析的兄弟 tag 节点进行迭代, find_previous_siblings() 方法返回所有符合条件的前面的兄弟节点, find_previous_sibling() 方法返回第一个符合条件的前面的兄弟节点</p>
+<p>（4）find_all_next()  find_next()</p>
+<p>这2个方法通过 .next_elements 属性对当前 tag 的之后的 tag 和字符串进行迭代, find_all_next() 方法返回所有符合条件的节点, find_next() 方法返回第一个符合条件的节点</p>
+<p>（5）find_all_previous() 和 find_previous()</p>
+<p>这2个方法通过 .previous_elements 属性对当前节点前面的 tag 和字符串进行迭代, find_all_previous() 方法返回所有符合条件的节点, find_previous()方法返回第一个符合条件的节点</p>
+<h2 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">print(soup.select(&#39;.story .sister&#39;))</span><br><span class="line">print(soup.select(&#39;p a&#39;))</span><br><span class="line">print(soup.select(&#39;#link2&#39;))</span><br><span class="line">print(soup.select(&#39;p&#39;)[0])</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181112145956535.png" alt="在这里插入图片描述"><br>第一个打印的结果为class属性为‘story’的标签中class属性为‘sister’的元素，使用class进行选择时，名称前需要加一个”.”。<br>第二个打印结果为p标签中a标签的内容，与第一个返回结果相同。<br>第三个打印结果为id为link2标签的内容，在使用id标签进行选择时需要在名字前面加”#”符号。<br>第四个打印的是第一个p标签的内容。</p>
+<ul>
+<li>进行层层迭代的输出</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">for p in soup.select(&#39;p&#39;):</span><br><span class="line">    print(p.select(&#39;a&#39;))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181112150517918.png" alt="在这里插入图片描述"><br>可以输出p标签中a标签的内容</p>
+<ul>
+<li>获取属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">for p in soup.select(&#39;p&#39;):</span><br><span class="line">    print(p[&#39;class&#39;])</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181112150704814.png" alt="在这里插入图片描述"><br>这样就获取到了p标签中class属性的名称。</p>
+<ul>
+<li>获取内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">html &#x3D; &quot;&quot;&quot;</span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;,</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link2&quot;&gt;Lacie&lt;&#x2F;a&gt; and</span><br><span class="line">&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; class&#x3D;&quot;sister&quot; id&#x3D;&quot;link3&quot;&gt;Tillie&lt;&#x2F;a&gt;;</span><br><span class="line">and they lived at the bottom of a well.&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;story&quot;&gt;...&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">soup &#x3D; BeautifulSoup(html,&#39;lxml&#39;)</span><br><span class="line">for p in soup.select(&#39;a&#39;):</span><br><span class="line">    print(p.get_text)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181112150827192.png" alt="在这里插入图片描述"><br>获取到了p标签中a标签的所有内容</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本篇内容比较多，把 Beautiful Soup 的方法进行了大部分整理和总结，不过这还不算完全，仍然有 Beautiful Soup 的修改删除功能，不过这些功能用得比较少，只整理了查找提取的方法，希望对大家有帮助！小伙伴们加油！</p>
+
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/10/Spider-RequestsDoc/" rel="prev" title="Python3中Requests库的使用">
+      <i class="fa fa-chevron-left"></i> Python3中Requests库的使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/18/Spider-PyQueryDoc/" rel="next" title="Python3中PyQuery的使用">
+      Python3中PyQuery的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签选择器"><span class="nav-number">2.</span> <span class="nav-text">标签选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准选择器"><span class="nav-number">3.</span> <span class="nav-text">标准选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find-all-name-attrs-recursive-text-kwargs"><span class="nav-number">4.</span> <span class="nav-text">find_all( name , attrs , recursive , text , **kwargs )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find-name-attrs-recursive-text-kwargs"><span class="nav-number">5.</span> <span class="nav-text">find( name , attrs , recursive , text , **kwargs )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他用法一样的标准选择器"><span class="nav-number">6.</span> <span class="nav-text">其他用法一样的标准选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS选择器"><span class="nav-number">7.</span> <span class="nav-text">CSS选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ccclll777</p>
+  <div class="site-description" itemprop="description">胸怀猛虎 细嗅蔷薇</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccclll777" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccclll777" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sdu945860882@gmail.com" title="E-Mail → mailto:sdu945860882@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.weibo.com/6732062654" title="Weibo → https:&#x2F;&#x2F;www.weibo.com&#x2F;6732062654" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/baidu_41871794" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;baidu_41871794" rel="noopener" target="_blank"><i class="gratipay fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ccclll777</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">344k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:13</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
