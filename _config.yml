@@ -1,0 +1,176 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: ccclll777's blogs
+subtitle: ''
+description: '胸怀猛虎 细嗅蔷薇'
+keywords:
+author: ccclll777
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+avatar:
+  url: /images/avatar.png  # 设置头像资源的位置
+  rounded: true            # 开启圆形头像
+  opacity: 1               # 不透明的比例：0就是完全透明
+  rotated: false           # 不开启旋转
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: http://yoursite.com
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## Use post's date for updated date unless set in front-matter
+use_date_for_updated: false
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+#include:
+#exclude:
+ignore:
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+
+# Extensions
+## Plugins: http://hexo.io/plugins/
+
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: 'git'
+  repo: 
+    github: https://github.com/ccclll777/ccclll777.github.io
+  branch: master
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+  template:
+
+scroll_to_more: true      # 点击阅读全文后是否跳到<!--more-->标记处,设为false时点击阅读全文可以从头阅读
+
+save_scroll: false        # 自动保存每篇文章或页面上一次滚动的地方
+
+excerpt_description: true # 自动在首页对文章进行摘要描述作为前言文本
+
+auto_excerpt:   # 是否自动截取摘要
+  enable: false # 设置为true则自动截取150字当做首页摘要
+  length: 150   # 自动截取的字数
+
+post_meta:
+  item_text: false    # 设为true 可以一行显示，文章的所有属性
+  created_at: true    # 显示创建时间
+  updated_at:
+    enabled: true     # 显示修改的时间
+    another_day: true # 设true时，如果创建时间和修改时间一样则显示一个时间
+  categories: true    # 显示分类信息
+
+
+busuanzi_count:
+  enable: false              # 设true 开启
+  total_visitors: true       # 总阅读人数（uv数）
+  total_visitors_icon: user  # 阅读总人数的图标
+  total_views: true          # 总阅读次数（pv数）
+  total_views_icon: eye      # 阅读总次数的图标
+  post_views: true           # 开启内容阅读次数
+  post_views_icon: eye       # 内容页阅读数的图标
+
+symbols_count_time:
+ #文章内是否显示
+  symbols: true
+  time: true
+ # 网页底部是否显示
+  total_symbols: true
+  total_time: true
+
+codeblock:
+  copy_button:
+    enable: false      # 增加复制按钮的开关
+    show_result: false # 点击复制完后是否显示 复制成功 结果提示
+
+
+canvas_nest: true
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    # src: custom_mathjax_source
+    config:
+      # MathJax config
