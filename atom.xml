@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-07T06:22:47.641Z</updated>
+  <updated>2020-12-08T12:48:48.171Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tensorflow_and_Reinforcement_learning</title>
+    <link href="http://yoursite.com/2020/12/08/Tensorflow-and-Reinforcement-learning/"/>
+    <id>http://yoursite.com/2020/12/08/Tensorflow-and-Reinforcement-learning/</id>
+    <published>2020-12-08T12:46:47.000Z</published>
+    <updated>2020-12-08T12:48:48.171Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用tensorflow框架实现强化学习算法，其中包括Policy Gradient ，A3C，DQN等算法&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
   
   <entry>
     <title>强化学习基础理论</title>
@@ -454,31 +479,6 @@
       <category term="c++" scheme="http://yoursite.com/tags/c/"/>
     
       <category term="字符串" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PTA甲级刷题记录——动态规划专题</title>
-    <link href="http://yoursite.com/2020/03/29/Arithmetic-PTA-AdvancedLevel-DynamicPlanning/"/>
-    <id>http://yoursite.com/2020/03/29/Arithmetic-PTA-AdvancedLevel-DynamicPlanning/</id>
-    <published>2020-03-29T01:33:56.000Z</published>
-    <updated>2020-07-06T09:00:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;PTA甲级刷题记录——动态规划题解，方便自己复盘&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="PTA甲级刷题" scheme="http://yoursite.com/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/"/>
-    
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
-    
-      <category term="动态规划" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
