@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-08T12:48:48.171Z</updated>
+  <updated>2020-12-09T04:30:00.125Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PyTorch入门知识</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch-Introductory-knowledge/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch-Introductory-knowledge/</id>
+    <published>2020-12-09T03:45:55.000Z</published>
+    <updated>2020-12-09T04:30:00.125Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PyTorch的简洁设计使得它入门很简单，在深入介绍PyTorch之前，本节将先介绍一些PyTorch的基础知识，使得读者能够对PyTorch有一个大致的了解，并能够用PyTorch搭建一个简单的神经网络。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
   
   <entry>
     <title>Tensorflow_and_Reinforcement_learning</title>
@@ -456,29 +481,6 @@
     
     
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PTA甲级刷题记录——字符串专题</title>
-    <link href="http://yoursite.com/2020/03/29/Arithmetic-PTA-AdvancedLevel-String/"/>
-    <id>http://yoursite.com/2020/03/29/Arithmetic-PTA-AdvancedLevel-String/</id>
-    <published>2020-03-29T01:34:04.000Z</published>
-    <updated>2020-07-06T09:00:05.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="PTA甲级刷题" scheme="http://yoursite.com/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/"/>
-    
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
-    
-      <category term="字符串" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
