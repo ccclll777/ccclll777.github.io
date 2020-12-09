@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201208222351279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201209103400104.png">
 <meta property="article:published_time" content="2020-12-09T03:45:55.000Z">
-<meta property="article:modified_time" content="2020-12-09T04:30:00.125Z">
+<meta property="article:modified_time" content="2020-12-09T04:31:12.807Z">
 <meta property="article:author" content="ccclll777">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="深度学习框架">
@@ -201,7 +201,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-12-09 11:45:55 / 修改时间：12:30:00" itemprop="dateCreated datePublished" datetime="2020-12-09T11:45:55+08:00">2020-12-09</time>
+              <time title="创建时间：2020-12-09 11:45:55 / 修改时间：12:31:12" itemprop="dateCreated datePublished" datetime="2020-12-09T11:45:55+08:00">2020-12-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -302,7 +302,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">output：</span><br><span class="line">torch.Size([<span class="number">1</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.zero_grad() <span class="comment"># 所有参数的梯度清零</span></span><br><span class="line">out.backward(Variable(t.ones(<span class="number">1</span>,<span class="number">10</span>))) <span class="comment"># 反向传播</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/2020120822173324.png" alt="在这里插入图片描述"></p>
-<h1 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h1><ul>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><ul>
 <li>nn实现了神经网络中大多数的损失函数，例如nn.MSELoss用来计算均方误差，nn.CrossEntropyLoss用来计算交叉熵损失</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">output = net(input)</span><br><span class="line">target = Variable(t.arange(<span class="number">0</span>,<span class="number">10</span>).float())  </span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">loss = criterion(output, target)</span><br><span class="line">loss</span><br></pre></td></tr></table></figure>
@@ -398,7 +398,10 @@
     <a href="/2020/12/08/Tensorflow-and-Reinforcement-learning/" rel="prev" title="Tensorflow_and_Reinforcement_learning">
       <i class="fa fa-chevron-left"></i> Tensorflow_and_Reinforcement_learning
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/09/Pytorch-and-Tensor/" rel="next" title="Pytorch_and_Tensor">
+      Pytorch_and_Tensor <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -457,7 +460,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensor"><span class="nav-number">1.</span> <span class="nav-text">Tensor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autograd-自动微分"><span class="nav-number">2.</span> <span class="nav-text">Autograd: 自动微分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络"><span class="nav-number">3.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义网络"><span class="nav-number">3.1.</span> <span class="nav-text">定义网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#损失函数"><span class="nav-number">4.</span> <span class="nav-text">损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化器"><span class="nav-number">4.1.</span> <span class="nav-text">优化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据加载与预处理"><span class="nav-number">4.2.</span> <span class="nav-text">数据加载与预处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CIFAR-10分类"><span class="nav-number">5.</span> <span class="nav-text">CIFAR-10分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CIFAR-10数据加载及预处理"><span class="nav-number">5.1.</span> <span class="nav-text">CIFAR-10数据加载及预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义网络-1"><span class="nav-number">5.2.</span> <span class="nav-text">定义网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义损失函数和优化器-loss和optimizer"><span class="nav-number">5.3.</span> <span class="nav-text">定义损失函数和优化器(loss和optimizer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练网络"><span class="nav-number">5.4.</span> <span class="nav-text">训练网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在GPU训练"><span class="nav-number">5.5.</span> <span class="nav-text">在GPU训练</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensor"><span class="nav-number">1.</span> <span class="nav-text">Tensor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autograd-自动微分"><span class="nav-number">2.</span> <span class="nav-text">Autograd: 自动微分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络"><span class="nav-number">3.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义网络"><span class="nav-number">3.1.</span> <span class="nav-text">定义网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数"><span class="nav-number">3.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化器"><span class="nav-number">3.3.</span> <span class="nav-text">优化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据加载与预处理"><span class="nav-number">3.4.</span> <span class="nav-text">数据加载与预处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CIFAR-10分类"><span class="nav-number">4.</span> <span class="nav-text">CIFAR-10分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CIFAR-10数据加载及预处理"><span class="nav-number">4.1.</span> <span class="nav-text">CIFAR-10数据加载及预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义网络-1"><span class="nav-number">4.2.</span> <span class="nav-text">定义网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义损失函数和优化器-loss和optimizer"><span class="nav-number">4.3.</span> <span class="nav-text">定义损失函数和优化器(loss和optimizer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练网络"><span class="nav-number">4.4.</span> <span class="nav-text">训练网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在GPU训练"><span class="nav-number">4.5.</span> <span class="nav-text">在GPU训练</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -471,7 +474,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -535,13 +538,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">431k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

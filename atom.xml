@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-09T04:30:00.125Z</updated>
+  <updated>2020-12-09T13:27:14.009Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,87 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Pytorch_and_torch.nn</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch-and-torch-nn/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch-and-torch-nn/</id>
+    <published>2020-12-09T13:25:38.000Z</published>
+    <updated>2020-12-09T13:27:14.009Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;torch.nn专门为深度学习而设计的模块。torch.nn的核心数据结构是&lt;code&gt;Module&lt;/code&gt;，它是一个抽象概念，既可以表示神经网络中的某个层（layer），也可以表示一个包含很多层的神经网络。在实际使用中，最常见的做法是继承&lt;code&gt;nn.Module&lt;/code&gt;，撰写自己的网络层.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch_and_Autograd</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch-and-Autograd/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch-and-Autograd/</id>
+    <published>2020-12-09T13:25:19.000Z</published>
+    <updated>2020-12-09T13:27:02.873Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍Pytorch中的自动微分系统（Autograd）&lt;br&gt;用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传播过程自动构建计算图，并执行反向传播。&lt;/p&gt;
+&lt;p&gt;计算图(Computation Graph)是现代深度学习框架如PyTorch和TensorFlow等的核心，其为高效自动求导算法——反向传播(Back Propogation)提供了理论支持，了解计算图在实际写程序过程中会有极大的帮助。本节将涉及一些基础的计算图知识，但并不要求读者事先对此有深入的了解。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch_and_Tensor</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch-and-Tensor/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch-and-Tensor/</id>
+    <published>2020-12-09T13:25:08.000Z</published>
+    <updated>2020-12-09T13:27:04.916Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍Pytorch中的张量系统（Tensor）&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PyTorch入门知识</title>
     <link href="http://yoursite.com/2020/12/09/Pytorch-Introductory-knowledge/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch-Introductory-knowledge/</id>
     <published>2020-12-09T03:45:55.000Z</published>
-    <updated>2020-12-09T04:30:00.125Z</updated>
+    <updated>2020-12-09T04:31:12.807Z</updated>
     
     <summary type="html">
     
@@ -412,75 +488,6 @@
       <category term="django" scheme="http://yoursite.com/tags/django/"/>
     
       <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>爬取boss直聘岗位数据进行数据分析</title>
-    <link href="http://yoursite.com/2020/04/27/DataAnalysis-bosszp/"/>
-    <id>http://yoursite.com/2020/04/27/DataAnalysis-bosszp/</id>
-    <published>2020-04-27T02:50:34.000Z</published>
-    <updated>2020-07-06T09:00:15.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;爬取boss直聘岗位数据，按照数据分析的流程，分析数据，从大量数据中得出结论&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数据分析" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库课程设计——火车票售票系统</title>
-    <link href="http://yoursite.com/2020/04/26/CurriculumDesign-Databases/"/>
-    <id>http://yoursite.com/2020/04/26/CurriculumDesign-Databases/</id>
-    <published>2020-04-26T06:52:34.000Z</published>
-    <updated>2020-07-06T09:02:04.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;数据库课程设计的题目，设计了一个火车票售票系统，实现了列车信息查询，车票查询及购买，订单查询，个人信息管理等功能，数据是从12306爬取的真实数据。  &lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="课程设计" scheme="http://yoursite.com/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
-    
-      <category term="springboot" scheme="http://yoursite.com/tags/springboot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>面向对象实验——solitaire纸牌游戏</title>
-    <link href="http://yoursite.com/2020/04/22/CurriculumDesign-Solitaire/"/>
-    <id>http://yoursite.com/2020/04/22/CurriculumDesign-Solitaire/</id>
-    <published>2020-04-22T11:52:34.000Z</published>
-    <updated>2020-07-06T08:59:46.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;单人纸牌游戏，牌桌上有7个堆共28张牌，第一堆1张牌，第二堆2张，。。。第7堆7张，每一堆的第一张牌朝上，其他朝下。牌桌上还有4个suitpiles，一个deck card堆和一个discard card堆，布局如下（参考windows的纸牌游戏）&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="课程设计" scheme="http://yoursite.com/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
   </entry>
   
