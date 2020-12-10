@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-09T13:27:14.009Z</updated>
+  <updated>2020-12-10T02:59:04.066Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Pytorch_and_torch.nn</title>
+    <title>PyTorch常用工具模块</title>
+    <link href="http://yoursite.com/2020/12/09/PyTorch-Commonly-Used-Tool-Modules/"/>
+    <id>http://yoursite.com/2020/12/09/PyTorch-Commonly-Used-Tool-Modules/</id>
+    <published>2020-12-09T13:32:23.000Z</published>
+    <updated>2020-12-10T02:59:04.066Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch中神经网络工具箱nn模块</title>
     <link href="http://yoursite.com/2020/12/09/Pytorch-and-torch-nn/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch-and-torch-nn/</id>
     <published>2020-12-09T13:25:38.000Z</published>
-    <updated>2020-12-09T13:27:14.009Z</updated>
+    <updated>2020-12-09T13:28:09.016Z</updated>
     
     <summary type="html">
     
@@ -42,11 +67,11 @@
   </entry>
   
   <entry>
-    <title>Pytorch_and_Autograd</title>
+    <title>Pytorch中的Autograd</title>
     <link href="http://yoursite.com/2020/12/09/Pytorch-and-Autograd/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch-and-Autograd/</id>
     <published>2020-12-09T13:25:19.000Z</published>
-    <updated>2020-12-09T13:27:02.873Z</updated>
+    <updated>2020-12-09T13:29:25.021Z</updated>
     
     <summary type="html">
     
@@ -68,11 +93,11 @@
   </entry>
   
   <entry>
-    <title>Pytorch_and_Tensor</title>
+    <title>Pytorch中的Tensor</title>
     <link href="http://yoursite.com/2020/12/09/Pytorch-and-Tensor/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch-and-Tensor/</id>
     <published>2020-12-09T13:25:08.000Z</published>
-    <updated>2020-12-09T13:27:04.916Z</updated>
+    <updated>2020-12-09T13:28:07.654Z</updated>
     
     <summary type="html">
     
@@ -461,33 +486,6 @@
     
     
       <category term="多文档摘要" scheme="http://yoursite.com/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>京东苏宁爬虫，商品价格比较</title>
-    <link href="http://yoursite.com/2020/05/28/CurriculumDesign-jdsnCompare/"/>
-    <id>http://yoursite.com/2020/05/28/CurriculumDesign-jdsnCompare/</id>
-    <published>2020-05-28T15:14:26.000Z</published>
-    <updated>2020-07-06T09:00:04.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;爬取京东苏宁商品信息（手机 笔记本电脑） 以及商品的评论 然后集成到web上，实现了价格评价的比较 并且对每件商品评论进行了情感分析，绘制了评论的词云&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="课程设计" scheme="http://yoursite.com/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
-    
-      <category term="django" scheme="http://yoursite.com/tags/django/"/>
-    
-      <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
