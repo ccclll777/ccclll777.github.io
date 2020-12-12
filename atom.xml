@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-10T02:59:04.066Z</updated>
+  <updated>2020-12-12T02:56:54.417Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pytorch强化学习算法实现</title>
+    <link href="http://yoursite.com/2020/12/12/Pytorch-Reinforcement-Learning-Algorithm/"/>
+    <id>http://yoursite.com/2020/12/12/Pytorch-Reinforcement-Learning-Algorithm/</id>
+    <published>2020-12-12T02:54:37.000Z</published>
+    <updated>2020-12-12T02:56:54.417Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Pytorch框架实现了强化学习算法Policy Gradient/DQN/DDGP&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
   
   <entry>
     <title>PyTorch常用工具模块</title>
@@ -143,11 +168,11 @@
   </entry>
   
   <entry>
-    <title>Tensorflow_and_Reinforcement_learning</title>
+    <title>Tensorflow与强化学习</title>
     <link href="http://yoursite.com/2020/12/08/Tensorflow-and-Reinforcement-learning/"/>
     <id>http://yoursite.com/2020/12/08/Tensorflow-and-Reinforcement-learning/</id>
     <published>2020-12-08T12:46:47.000Z</published>
-    <updated>2020-12-08T12:48:48.171Z</updated>
+    <updated>2020-12-12T02:56:53.114Z</updated>
     
     <summary type="html">
     
@@ -465,27 +490,6 @@
     
     
       <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多文档摘要</title>
-    <link href="http://yoursite.com/2020/07/23/Paper-SemSentSum/"/>
-    <id>http://yoursite.com/2020/07/23/Paper-SemSentSum/</id>
-    <published>2020-07-23T09:20:08.000Z</published>
-    <updated>2020-09-27T07:47:18.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;多文档摘要论文复现&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="论文复现" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-      <category term="多文档摘要" scheme="http://yoursite.com/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/"/>
     
   </entry>
   
