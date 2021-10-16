@@ -34,8 +34,8 @@
 <meta property="article:published_time" content="2018-11-09T13:30:09.000Z">
 <meta property="article:modified_time" content="2021-10-16T09:34:25.498Z">
 <meta property="article:author" content="ccclll777">
-<meta property="article:tag" content="python">
 <meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="python">
 <meta property="article:tag" content="模拟网络请求">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/2018110920484712.png">
@@ -244,52 +244,52 @@
 
       
         <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Urllib库是Python中的一个功能强大、用于操作URL，并在做爬虫的时候经常要用到的库。<br><span id="more"></span></p>
-<h2 id="urlopen方法"><a href="#urlopen方法" class="headerlink" title="urlopen方法"></a>urlopen方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urllib.request.urlopen(url, data&#x3D;None, [timeout, ]*, cafile&#x3D;None, capath&#x3D;None, cadefault&#x3D;False, context&#x3D;None)</span><br></pre></td></tr></table></figure>
+<h2 id="urlopen方法"><a href="#urlopen方法" class="headerlink" title="urlopen方法"></a>urlopen方法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">urllib.request.urlopen(url, data&#x3D;None, [timeout, ]*, cafile&#x3D;None, capath&#x3D;None, cadefault&#x3D;False, context&#x3D;None)</span><br></pre></td></tr></table></figure>
 <p>这是urllib.request.urlopen函数，第一个参数是网站的url，第二个参数是发送post请求时需要的数据，第三个参数是超时的设置（如果在规定的时间没有返回，则会报错），后面的三个参数暂时用不到，不过多叙述。</p>
 <ul>
 <li>例子1:使用urlopen访问网页（get请求）：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
 <p>.read()方法会返回网页的源代码，这里需要使用utf-8进行解码。</p>
 <ul>
 <li>例子2:使用urlopen访问网页（post请求）：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">data &#x3D; bytes(urllib.parse.urlencode(&#123;&#39;word&#39;:&#39;hello&#39;&#125;), encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;,data&#x3D;data)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">data &#x3D; bytes(urllib.parse.urlencode(&#123;&#39;word&#39;:&#39;hello&#39;&#125;), encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;,data&#x3D;data)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
 <p>这里会输出一些json字符串，这个网址是用来做http测试的一个网址，它会返回一些请求测试数据。<br>http测试网址：<a target="_blank" rel="noopener" href="http://httpbin.org">http://httpbin.org</a></p>
 <ul>
 <li>例子3:使用urlopen的timeout参数</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
 <p>如果没有超时，则会成功返回。如果超时，则程序报错。</p>
 <h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><ul>
 <li>获取响应类型</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(type(response))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(type(response))</span><br></pre></td></tr></table></figure>
 <p> 这里使用type可以获取response的响应类型，结果如下。<br> <img src="https://img-blog.csdnimg.cn/2018110920484712.png" alt="在这里插入图片描述"></p>
 <ul>
 <li>获取状态码，响应头<br>这两个参数可以在浏览器的检查元素中network版块下找到，这里利用urllib的方法返回这两个参数。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.status)</span><br><span class="line">print(response.getheaders())</span><br><span class="line">print(response.getheader(&#39;Server&#39;))&#x2F;&#x2F;这里会返回Server后面的参数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.status)</span><br><span class="line">print(response.getheaders())</span><br><span class="line">print(response.getheader(&#39;Server&#39;))&#x2F;&#x2F;这里会返回Server后面的参数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 <p><img src="https://img-blog.csdnimg.cn/20181109205545941.png" alt="在这里插入图片描述"><br>200表示连接成功</p>
 <ul>
 <li>使用request方法构造post请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">dict &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;Germey&#39;</span><br><span class="line">&#125;</span><br><span class="line">data &#x3D; bytes(parse.urlencode(dict),encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line">req &#x3D; request.Request(url&#x3D;url,data &#x3D; data,headers&#x3D;headers,method&#x3D;&#39;POST&#39;)</span><br><span class="line">response &#x3D; request.urlopen(req)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">dict &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;Germey&#39;</span><br><span class="line">&#125;</span><br><span class="line">data &#x3D; bytes(parse.urlencode(dict),encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line">req &#x3D; request.Request(url&#x3D;url,data &#x3D; data,headers&#x3D;headers,method&#x3D;&#39;POST&#39;)</span><br><span class="line">response &#x3D; request.urlopen(req)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
 <p>这个代码和第一个发送post请求的代码有所不同，但是返回结果相同，这里可以添加更多参数进行请求,在这里传入了base64编码后的from-data数据，headers，以及制定了method为post请求。<br>构造了request请求，返回结果为：<br><img src="https://img-blog.csdnimg.cn/20181109211029463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li>设置代理</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line">import urllib.request</span><br><span class="line">proxy_handler &#x3D; urllib.request.ProxyHandler(&#123;</span><br><span class="line">    &#39;http&#39;:&#39;http:&#x2F;&#x2F;127.0.0.1&#39;,</span><br><span class="line">    &#39;https&#39;:&#39;https:&#x2F;&#x2F;127.0.0.1&#39;</span><br><span class="line">&#125;)#里面的代理ip是你自己的代理的ip</span><br><span class="line">opener &#x3D; urllib.request.build_opener(proxy_handler)#加入代理，构造opener</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#请求网页</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line">import urllib.request</span><br><span class="line">proxy_handler &#x3D; urllib.request.ProxyHandler(&#123;</span><br><span class="line">    &#39;http&#39;:&#39;http:&#x2F;&#x2F;127.0.0.1&#39;,</span><br><span class="line">    &#39;https&#39;:&#39;https:&#x2F;&#x2F;127.0.0.1&#39;</span><br><span class="line">&#125;)#里面的代理ip是你自己的代理的ip</span><br><span class="line">opener &#x3D; urllib.request.build_opener(proxy_handler)#加入代理，构造opener</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#请求网页</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
 <ul>
 <li>cookie<br>cookie是维持网页登陆状态需要用到的东西，里面储存了登陆信息，保存在本地，在写爬虫是，用cookie处理需要登陆的网页。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">cookie &#x3D; http.cookiejar.CookieJar()#将cookie声明为cookiejar的对象</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)#借助header处理cookie</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)#使用build_opener传入header</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#利用opener打开百度</span><br><span class="line">for item in cookie:</span><br><span class="line">    print(item.name+&quot;&#x3D;&quot;+item.value)#cookie会被浏览器赋值，然后打印出来</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">cookie &#x3D; http.cookiejar.CookieJar()#将cookie声明为cookiejar的对象</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)#借助header处理cookie</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)#使用build_opener传入header</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#利用opener打开百度</span><br><span class="line">for item in cookie:</span><br><span class="line">    print(item.name+&quot;&#x3D;&quot;+item.value)#cookie会被浏览器赋值，然后打印出来</span><br></pre></td></tr></table></figure>
 <p>具体分析在代码中，下面是执行结果：<br><img src="https://img-blog.csdnimg.cn/20181109212540278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li>将cookie保存为本地文件</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">filename &#x3D; &quot;cookie.txt&quot;</span><br><span class="line">cookie &#x3D; http.cookiejar.MozillaCookieJar(filename)</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">cookie.save(ignore_discard&#x3D;True,ignore_expires&#x3D;True)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">filename &#x3D; &quot;cookie.txt&quot;</span><br><span class="line">cookie &#x3D; http.cookiejar.MozillaCookieJar(filename)</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">cookie.save(ignore_discard&#x3D;True,ignore_expires&#x3D;True)</span><br></pre></td></tr></table></figure>
 <p>和刚才相似，只是将cookie保存到了本地，可以在cookie没有实效之前继续调用。<br>这里的cookie可以用不同的形式保存，只需要修改<br>cookie = http.cookiejar.MozillaCookieJar(filename)即可。</p>
 <p>以上为本篇博客内容，下一次继续学习request库的使用</p>
 
@@ -310,8 +310,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i></a>
               <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i></a>
               <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
@@ -461,13 +461,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">476k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:13</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
