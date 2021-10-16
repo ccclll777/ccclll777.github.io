@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Pytorch中的Autograd | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍Pytorch中的自动微分系统（Autograd）用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch中的Autograd">
+<meta property="og:url" content="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="介绍Pytorch中的自动微分系统（Autograd）用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201209160246761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201209162133885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201209162552713.png">
+<meta property="article:published_time" content="2020-12-09T13:25:19.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.621Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="深度学习框架">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pytorch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201209160246761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Pytorch/Pytorch-and-Autograd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/" class="article-date">
+  <time datetime="2020-12-09T13:25:19.000Z" itemprop="datePublished">2020-12-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pytorch中的Autograd
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>介绍Pytorch中的自动微分系统（Autograd）<br>用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传播过程自动构建计算图，并执行反向传播。</p>
+<p>计算图(Computation Graph)是现代深度学习框架如PyTorch和TensorFlow等的核心，其为高效自动求导算法——反向传播(Back Propogation)提供了理论支持，了解计算图在实际写程序过程中会有极大的帮助。本节将涉及一些基础的计算图知识，但并不要求读者事先对此有深入的了解。<br><span id="more"></span></p>
+<h1 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h1><p>PyTorch在autograd模块中实现了计算图的相关功能，autograd中的核心数据结构是Variable。Variable封装了tensor，并记录对tensor的操作记录用来构建计算图。Variable的数据结构如图所示，主要包含三个属性：<br><img src="https://img-blog.csdnimg.cn/20201209160246761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><code>data</code>：保存variable所包含的tensor</li>
+<li><code>grad</code>：保存<code>data</code>对应的梯度，<code>grad</code>也是variable，而不是tensor，它与<code>data</code>形状一致。 </li>
+<li><code>grad_fn</code>： 指向一个<code>Function</code>，记录tensor的操作历史，即它是什么操作的输出，用来构建计算图。如果某一个变量是由用户创建，则它为叶子节点，对应的grad_fn等于None。</li>
+</ul>
+<p>Variable的构造函数需要传入tensor，同时有两个可选参数：</p>
+<ul>
+<li><code>requires_grad (bool)</code>：是否需要对该variable进行求导</li>
+<li><code>volatile (bool)</code>：意为”挥发“，设置为True，则构建在该variable之上的图都不会求导，专为推理阶段设计</li>
+</ul>
+<p>Variable提供了大部分tensor支持的函数，但其不支持部分<code>inplace</code>函数，因这些函数会修改tensor自身，而在反向传播中，variable需要缓存原来的tensor来计算反向传播梯度。如果想要计算各个Variable的梯度，只需调用根节点variable的<code>backward</code>方法，autograd会自动沿着计算图反向传播，计算每一个叶子节点的梯度。</p>
+<p><code>variable.backward(grad_variables=None, retain_graph=None, create_graph=None)</code>主要有如下参数：</p>
+<ul>
+<li>grad_variables：形状与variable一致，对于<code>y.backward()</code>，grad_variables相当于链式法则${dz \over dx}={dz \over dy} \times {dy \over dx}$中的$\textbf {dz} \over \textbf {dy}$。grad_variables也可以是tensor或序列。</li>
+<li>retain_graph：反向传播需要缓存一些中间结果，反向传播之后，这些缓存就被清空，可通过指定这个参数不清空缓存，用来多次反向传播。</li>
+<li>create_graph：对反向传播过程再次构建计算图，可通过<code>backward of backward</code>实现求高阶导数。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch </span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从tensor中创建variable，指定需要求导</span></span><br><span class="line">a = Variable(torch.ones(<span class="number">3</span>,<span class="number">4</span>), requires_grad = <span class="literal">True</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#b不需要求导</span></span><br><span class="line">b =  Variable(torch.zeros(<span class="number">3</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数的使用与tensor一致</span></span><br><span class="line"><span class="comment"># 也可写成c = a + b</span></span><br><span class="line">c = a.add(b)</span><br><span class="line"></span><br><span class="line">d = c.<span class="built_in">sum</span>()</span><br><span class="line">d.backward() <span class="comment"># 反向传播</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意二者的区别</span></span><br><span class="line"><span class="comment"># 前者在取data后变为tensor，而后从tensor计算sum得到float</span></span><br><span class="line"><span class="comment"># 后者计算sum后仍然是Variable</span></span><br><span class="line">c.data.<span class="built_in">sum</span>(), c.<span class="built_in">sum</span>()</span><br><span class="line"><span class="comment">#(tensor(12.), tensor(12., grad_fn=&lt;SumBackward0&gt;))</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处虽然没有指定c需要求导，但c依赖于a，而a需要求导，</span></span><br><span class="line"><span class="comment"># 因此c的requires_grad属性会自动设为True</span></span><br><span class="line">a.requires_grad, b.requires_grad, c.requires_grad</span><br><span class="line"><span class="comment">#(True, False, True)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由用户创建的variable属于叶子节点，对应的grad_fn是None</span></span><br><span class="line">a.is_leaf, b.is_leaf, c.is_leaf</span><br><span class="line"><span class="comment">#(True, True, False)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># c.grad是None, 因c不是叶子节点，它的梯度是用来计算a的梯度</span></span><br><span class="line"><span class="comment"># 所以虽然c.requires_grad = True,但其梯度计算完之后即被释放</span></span><br><span class="line">c.grad <span class="keyword">is</span> <span class="literal">None</span></span><br><span class="line"><span class="comment">#True</span></span><br></pre></td></tr></table></figure>
+<p>计算下面这个函数的导函数：</p>
+<script type="math/tex; mode=display">
+y = x^2\bullet e^x</script><p>它的导函数是：</p>
+<script type="math/tex; mode=display">
+{dy \over dx} = 2x\bullet e^x + x^2 \bullet e^x</script><p>来看看autograd的计算结果与手动求导计算结果的误差。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;计算y&#x27;&#x27;&#x27;</span></span><br><span class="line">    y = x**<span class="number">2</span> * t.exp(x)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradf</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;手动求导函数&#x27;&#x27;&#x27;</span></span><br><span class="line">    dx = <span class="number">2</span>*x*t.exp(x) + x**<span class="number">2</span>*t.exp(x)</span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#手动计算导数</span></span><br><span class="line">x = Variable(torch.randn(<span class="number">3</span>,<span class="number">4</span>), requires_grad = <span class="literal">True</span>)</span><br><span class="line">y = f(x)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#自动计算</span></span><br><span class="line">y.backward(torch.ones(y.size())) <span class="comment"># grad_variables形状与y一致</span></span><br><span class="line">x.grad</span><br><span class="line"><span class="comment"># autograd的计算结果与利用公式手动计算的结果一致</span></span><br><span class="line">gradf(x) </span><br></pre></td></tr></table></figure>
+<h1 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h1><p><img src="https://img-blog.csdnimg.cn/20201209162133885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>在PyTorch实现中，autograd会随着用户的操作，记录生成当前variable的所有操作，并由此建立一个有向无环图。用户每进行一个操作，相应的计算图就会发生改变。更底层的实现中，图中记录了操作<code>Function</code>，每一个变量在图中的位置可通过其<code>grad_fn</code>属性在图中的位置推测得到。在反向传播过程中，autograd沿着这个图从当前变量（根节点$\textbf{z}$）溯源，可以利用链式求导法则计算所有叶子节点的梯度。每一个前向传播操作的函数都有与之对应的反向传播函数用来计算输入的各个variable的梯度，这些函数的函数名通常以<code>Backward</code>结尾。下面结合代码学习autograd的实现细节。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = Variable(torch.ones(<span class="number">1</span>))</span><br><span class="line">b = Variable(torch.rand(<span class="number">1</span>), requires_grad = <span class="literal">True</span>)</span><br><span class="line">w = Variable(torch.rand(<span class="number">1</span>), requires_grad = <span class="literal">True</span>)</span><br><span class="line">y = w * x <span class="comment"># 等价于y=w.mul(x)</span></span><br><span class="line">z = y + b <span class="comment"># 等价于z=y.add(b)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x.requires_grad, b.requires_grad, w.requires_grad</span><br><span class="line"><span class="comment">#(False, True, True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 虽然未指定y.requires_grad为True，但由于y依赖于需要求导的w</span></span><br><span class="line"><span class="comment"># 故而y.requires_grad为True</span></span><br><span class="line">y.requires_grad</span><br><span class="line"><span class="comment">#True</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grad_fn可以查看这个variable的反向传播函数，</span></span><br><span class="line"><span class="comment"># z是add函数的输出，所以它的反向传播函数是AddBackward</span></span><br><span class="line">z.grad_fn </span><br><span class="line"><span class="comment">#&lt;AddBackward0 at 0x7f8761eebb20&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># next_functions保存grad_fn的输入，是一个tuple，tuple的元素也是Function</span></span><br><span class="line"><span class="comment"># 第一个是y，它是乘法(mul)的输出，所以对应的反向传播函数y.grad_fn是MulBackward</span></span><br><span class="line"><span class="comment"># 第二个是b，它是叶子节点，由用户创建，grad_fn为None，但是有</span></span><br><span class="line">z.grad_fn.next_functions </span><br><span class="line"><span class="comment">#((&lt;MulBackward0 at 0x7f8761eebb80&gt;, 0),</span></span><br><span class="line"><span class="comment">#(&lt;AccumulateGrad at 0x7f87911e6970&gt;, 0))</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一个是w，叶子节点，需要求导，梯度是累加的</span></span><br><span class="line"><span class="comment"># 第二个是x，叶子节点，不需要求导，所以为None</span></span><br><span class="line">y.grad_fn.next_functions</span><br><span class="line"><span class="comment">#((&lt;AccumulateGrad at 0x7f87911e6100&gt;, 0), (None, 0))</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 叶子节点的grad_fn是None</span></span><br><span class="line">w.grad_fn,x.grad_fn</span><br><span class="line"><span class="comment">#(None, None)</span></span><br></pre></td></tr></table></figure>
+<p>计算w的梯度的时候，需要用到x的数值<br><img src="https://img-blog.csdnimg.cn/20201209162552713.png" alt="在这里插入图片描述"><br>，这些数值在前向过程中会保存成buffer，在计算完梯度之后会自动清空。为了能够多次反向传播需要指定<code>retain_graph</code>来保留这些buffer。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用retain_graph来保存buffer</span></span><br><span class="line">z.backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line">w.grad</span><br></pre></td></tr></table></figure>
+<ul>
+<li>变量的<code>requires_grad</code>属性默认为False，如果某一个节点requires_grad被设置为True，那么所有依赖它的节点<code>requires_grad</code>都是True。<code>volatile=True</code>是另外一个很重要的标识，它能够将所有依赖于它的节点全部都设为<code>volatile=True</code>，其优先级比<code>requires_grad=True</code>高。<code>volatile=True</code>的节点不会求导，即使<code>requires_grad=True</code>，也无法进行反向传播。对于不需要反向传播的情景（如inference，即测试推理时），该参数可实现一定程度的速度提升，并节省约一半显存，因其不需要分配空间计算梯度。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = Variable(torch.ones(<span class="number">1</span>))</span><br><span class="line">w = Variable(torch.rand(<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = x * w</span><br><span class="line"><span class="comment"># y依赖于w，而w.requires_grad = True</span></span><br><span class="line">x.requires_grad, w.requires_grad, y.requires_grad</span><br><span class="line"><span class="comment">#(False, True, True)</span></span><br></pre></td></tr></table></figure>
+<p>在反向传播过程中非叶子节点的导数计算完之后即被清空。若想查看这些变量的梯度，有两种方法：</p>
+<ul>
+<li>使用autograd.grad函数</li>
+<li>使用hook</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x =  Variable(torch.ones(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">w =  Variable(torch.rand(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = x * w</span><br><span class="line"><span class="comment"># y依赖于w，而w.requires_grad = True</span></span><br><span class="line">z = y.<span class="built_in">sum</span>()</span><br><span class="line">x.requires_grad, w.requires_grad, y.requires_grad</span><br><span class="line"><span class="comment">#(True, True, True)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 非叶子节点grad计算完之后自动清空，y.grad是None</span></span><br><span class="line">z.backward()</span><br><span class="line">(x.grad, w.grad, y.grad)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 第一种方法：使用grad获取中间变量的梯度</span></span><br><span class="line">x =  Variable(torch.ones(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">w =  Variable(torch.rand(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = x * w</span><br><span class="line">z = y.<span class="built_in">sum</span>()</span><br><span class="line"><span class="comment"># z对y的梯度，隐式调用backward()</span></span><br><span class="line">torch.autograd.grad(z, y)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 第二种方法：使用hook</span></span><br><span class="line"><span class="comment"># hook是一个函数，输入是梯度，不应该有返回值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">variable_hook</span>(<span class="params">grad</span>):</span></span><br><span class="line">    print(<span class="string">&#x27;y的梯度： \r\n&#x27;</span>,grad)</span><br><span class="line"></span><br><span class="line">x = Variable(torch.ones(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">w =  Variable(torch.rand(<span class="number">3</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = x * w</span><br><span class="line"><span class="comment"># 注册hook</span></span><br><span class="line">hook_handle = y.register_hook(variable_hook)</span><br><span class="line">z = y.<span class="built_in">sum</span>()</span><br><span class="line">z.backward()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 除非你每次都要用hook，否则用完之后记得移除hook</span></span><br><span class="line">hook_handle.remove()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在PyTorch中计算图的特点可总结如下：</p>
+<ul>
+<li>autograd根据用户对variable的操作构建其计算图。对变量的操作抽象为<code>Function</code>。</li>
+<li>对于那些不是任何函数(Function)的输出，由用户创建的节点称为叶子节点，叶子节点的<code>grad_fn</code>为None。叶子节点中需要求导的variable，具有<code>AccumulateGrad</code>标识，因其梯度是累加的。</li>
+<li>variable默认是不需要求导的，即<code>requires_grad</code>属性默认为False，如果某一个节点requires_grad被设置为True，那么所有依赖它的节点<code>requires_grad</code>都为True。</li>
+<li>variable的<code>volatile</code>属性默认为False，如果某一个variable的<code>volatile</code>属性被设为True，那么所有依赖它的节点<code>volatile</code>属性都为True。volatile属性为True的节点不会求导，volatile的优先级比<code>requires_grad</code>高。</li>
+<li>多次反向传播时，梯度是累加的。反向传播的中间缓存会被清空，为进行多次反向传播需指定<code>retain_graph</code>=True来保存这些缓存。</li>
+<li>非叶子节点的梯度计算完之后即被清空，可以使用<code>autograd.grad</code>或<code>hook</code>技术获取非叶子节点的值。</li>
+<li>variable的grad与data形状一致，应避免直接修改variable.data，因为对data的直接操作无法利用autograd进行反向传播</li>
+<li>反向传播函数<code>backward</code>的参数<code>grad_variables</code>可以看成链式求导的中间结果，如果是标量，可以省略，默认为1</li>
+<li>PyTorch采用动态图设计，可以很方便地查看中间层的输出，动态的设计计算图结构。</li>
+</ul>
+<h1 id="用Variable实现线性回归"><a href="#用Variable实现线性回归" class="headerlink" title="用Variable实现线性回归"></a>用Variable实现线性回归</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable <span class="keyword">as</span> V</span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> IPython <span class="keyword">import</span> display</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置随机数种子，为了在不同人电脑上运行时下面的输出一致</span></span><br><span class="line">t.manual_seed(<span class="number">1000</span>) </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_fake_data</span>(<span class="params">batch_size=<span class="number">8</span></span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27; 产生随机数据：y = x*2 + 3，加上了一些噪声&#x27;&#x27;&#x27;</span></span><br><span class="line">    x = t.rand(batch_size,<span class="number">1</span>) * <span class="number">20</span></span><br><span class="line">    y = x * <span class="number">2</span> + (<span class="number">1</span> + t.randn(batch_size, <span class="number">1</span>))*<span class="number">3</span></span><br><span class="line">    <span class="keyword">return</span> x, y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 来看看产生x-y分布是什么样的</span></span><br><span class="line">x, y = get_fake_data()</span><br><span class="line">plt.scatter(x.squeeze().numpy(), y.squeeze().numpy())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机初始化参数</span></span><br><span class="line">w = V(t.rand(<span class="number">1</span>,<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = V(t.zeros(<span class="number">1</span>,<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">lr =<span class="number">0.001</span> <span class="comment"># 学习率</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ii <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8000</span>):</span><br><span class="line">    x, y = get_fake_data()</span><br><span class="line">    x, y = V(x.<span class="built_in">float</span>()), V(y.<span class="built_in">float</span>())</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># forward：计算loss</span></span><br><span class="line">    y_pred = x.mm(w) + b.expand_as(y)</span><br><span class="line">    loss = <span class="number">0.5</span> * (y_pred - y) ** <span class="number">2</span></span><br><span class="line">    loss = loss.<span class="built_in">sum</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># backward：手动计算梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新参数</span></span><br><span class="line">    w.data.sub_(lr * w.grad.data)</span><br><span class="line">    b.data.sub_(lr * b.grad.data)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 梯度清零</span></span><br><span class="line">    w.grad.data.zero_()</span><br><span class="line">    b.grad.data.zero_()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ii%<span class="number">1000</span> ==<span class="number">0</span>:</span><br><span class="line">        <span class="comment"># 画图</span></span><br><span class="line">        display.clear_output(wait=<span class="literal">True</span>)</span><br><span class="line">        x = t.arange(<span class="number">0</span>, <span class="number">20</span>).view(-<span class="number">1</span>, <span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">        y = x.mm(w.data) + b.data.expand_as(x)</span><br><span class="line">        plt.plot(x.numpy(), y.numpy()) <span class="comment"># predicted</span></span><br><span class="line">        </span><br><span class="line">        x2, y2 = get_fake_data(batch_size=<span class="number">20</span>) </span><br><span class="line">        plt.scatter(x2.numpy(), y2.numpy()) <span class="comment"># true data</span></span><br><span class="line">        </span><br><span class="line">        plt.xlim(<span class="number">0</span>,<span class="number">20</span>)</span><br><span class="line">        plt.ylim(<span class="number">0</span>,<span class="number">41</span>)   </span><br><span class="line">        plt.show()</span><br><span class="line">        plt.pause(<span class="number">0.5</span>)</span><br><span class="line">        </span><br><span class="line">print(w.data.squeeze()[<span class="number">0</span>], b.data.squeeze()[<span class="number">0</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/" data-id="ckutylm7v00110erue71e9na7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Pytorch中神经网络工具箱nn模块
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Pytorch中的Tensor</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="操作系统课程设计Project3（虚拟存储）系统设计与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory">
+<meta property="og:url" content="http://yoursite.com/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="操作系统课程设计Project3（虚拟存储）系统设计与实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100028752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100040596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100307480.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042710031733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100333933.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100351213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100357312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100406524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100437658.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202004271004467.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100457460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100508212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042710052087.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042710053364.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100551298.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100559658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427100606937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-01-04T05:37:34.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.621Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200427100028752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3/" class="article-date">
+  <time datetime="2020-01-04T05:37:34.000Z" itemprop="datePublished">2020-01-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>操作系统课程设计Project3（虚拟存储）系统设计与实现<br><span id="more"></span></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/ccclll777/nachos_os_design">https://github.com/ccclll777/nachos_os_design</a><br><strong>如果觉得有用，请点个star</strong></p>
+<h2 id="有关Linux操作系统交换文件，交换分区"><a href="#有关Linux操作系统交换文件，交换分区" class="headerlink" title="有关Linux操作系统交换文件，交换分区"></a>有关Linux操作系统交换文件，交换分区</h2><p>Linux将随机存储RAM称为内存页。交换技术就是将一页内存复制到预先设定的硬盘上的交换空间，来释放该页占用内存。物理内存和交换空间的和就是可提供的虚拟内存的总量。<br>有两个原因证明交换技术是很重要的。首先，系统需要的内存量比物理内存更大时，系统内核可以把较少使用的内存页写到交换空间，把空闲出来的内存给当前的应用程序（进程）使用。其次，一个应用启动时使用的内存页，可能只是在初始化时使用，之后不会再用，操作系统就可以把这部分内存页写入交换空间，把空闲出来的内存给其他应用使用或作为磁盘高速缓存。<br>Linux支持将一块硬盘或者某块硬盘的某块区域设定为交换分区，在缺少物理内存时，可以进行交换，比直接换入硬盘的普通区域效率要更高一些。</p>
+<h2 id="Project3-Caching-and-Virtual-Memory（虚拟存储）系统设计与实现"><a href="#Project3-Caching-and-Virtual-Memory（虚拟存储）系统设计与实现" class="headerlink" title="Project3:Caching and Virtual Memory（虚拟存储）系统设计与实现"></a>Project3:Caching and Virtual Memory（虚拟存储）系统设计与实现</h2><p><strong>【1】总体描述</strong><br>   NACHOS的第三个阶段是研究TLB、虚拟内存系统和文件系统之间的相互作用。为了帮助更好地组织代码，已经提供了一个新的package，nachos.vm，带有两个新类， VMKernel and VMProcess. 。VMKernel继承了UserKernel, VMProcess 继承UserProcess。VMKernel and VMProcess是您必须为这个项目阶段修改的唯一类。</p>
+<p>设计者需要设计如何在TLB未命中时进行软件地址转换、如何表示交换分区、如何实现分页等。您应该根据所有可用的标准来评估您的设计：处理TLB缺失的速度、内存中的空间开销、最小化页面错误的数量、简单性等。</p>
+<p>首先要考虑的设计方面是软件管理（TLB），在第二阶段使用页表来简化内存分配，并将故障从一个地址空间中隔离出来，以免影响其他程序，<br>在这个阶段，处理器对页表一无所知。相反，处理器只处理页面表条目的软件管理缓存，称为TLB。</p>
+<p>给定一个内存地址（要获取的指令，或要加载或存储的数据），处理器首先在TLB中查找，以确定虚拟页到物理页的映射是否存在。如果映射在TLB中，处理器将直接使用它。如果映射不在TLB中（“TLB未命中”），处理器会导致操作系统陷入内核。然后，内核负责使用页表、段、反向页表或其他合适的机制将映射加载到TLB中。</p>
+<p>这个项目的第二个设计方面是分页，它允许物理内存页被传送到磁盘，并提供磁盘（几乎）无限物理内存的幻象。TLB未命中可能需要从磁盘中导入一个页面以满足转换。也就是说，当发生TLB未命中错误时，内核应该检查自己的页表。如果页面不在内存中，则应该从磁盘中读取页面，将页面表条目设置为指向新页面，安装页面表条目，并恢复用户程序的执行。当然，内核必须首先在内存中找到输入页面的空间，如果修改了，可能会将其他页面写入磁盘。</p>
+<p>这种机制的性能很大程度上取决于用来决定哪些页保存在内存中并存储在磁盘上的策略。在页面错误时，内核必须决定要替换哪个页面；理想情况下，它会扔出一个不会长期引用的页面，记住这些页面可能很快被引用。另一个注意事项是，如果替换的页面已被修改，则必须先将该页面保存到磁盘，然后才能将所需的页面引入。（当然，如果页面未被修改，则无需将其写回磁盘。</p>
+<p>为了帮助您实现虚拟内存，每个TLB条目包含三个状态位： valid, used,和dirty. 如果设置了有效位（valid为true），则虚拟页在内存中，而TLB可以直接由处理器使用。 如果valid 为flase  或者如果在TLB中找不到页面，则处理器陷入内核，进行页面置换 。每当页面被引用时，处理器就在TLB条目中设置所使用的位，并在页面被修改时设置脏位。<br>每当页面被引用时，处理器就在TLB条目中设置use为true（used在读写时，首次加载时，表示此页正在使用，会将used设置为true<br>），并在页面被修改时设置脏位（dirty）。<br><strong>【2】task1:实现TLB的软件管理，通过反向页表进行页面置换</strong></p>
+<p><strong>【2.1】要求分析</strong></p>
+<p>我们需要实现一个全局的反向页表，在每个用户程序加载时，会在反向页表中分配一项，里面记录进程的逻辑页，但是不分配物理页（valid为false），物理页的分配在出现页错误时在进行。</p>
+<p>  在出现页错误时，会陷入内核，在给对应的逻辑页分配物理页，然后将此页（TranslationEntry）的信息加入TLB中，程序可以继续执行。<br>需要在上下文切换时正确的设置TLB的状态，需要在保存上下文时保存此用户程序当前TLB的状态，然后在恢复上下文时恢复之前TLB的状态（或者只恢复valid为false的页）</p>
+<p><strong>【2.2】实现方式</strong><br>（1）需要设计一个反向页表类（InvertPageTable），里面有一个全局的反向页表（GlobalInvertPageTable）（java的静态变量），已经对于反向页表进行操作的一些静态方法。<br>反向页表使用HashMap实现，用进程的id和虚拟页号为key，然后页表项TranslationEntry为value。<br>需要维护一个全局的帧表，为每一页如果分配了物理内存，则会加入帧表。<br>需要实现对反向页表的插入，删除，更新，设置，获取对应的页的方法，并且在缺页时，通过二次机会算法选择需要牺牲的页。<br>在用户程序加载时，先为每一个虚拟页在反向页表中分配空间，在发生页错误后会陷入内核，分配相应的物理页，然后更新反向页表以及帧表的内容。</p>
+<p><strong>（2）反向页表的插入（insertEntry）</strong><br>在用户程序加载时，会在反向页表中插入页，如果此页的valid标记为true，表示此页应该在物理帧中，则在帧表中分配一块空间。<br><img src="https://img-blog.csdnimg.cn/20200427100028752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（3）反向页表的删除（deleteEntry）</strong><br>在用户程序执行完毕释放资源时，需要调用此方法释放反向页表中有关的条目。<br><img src="https://img-blog.csdnimg.cn/20200427100040596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（4）设置反向页表的状态（setEntry）</strong><br>在某一页发生更新时，需要在反向页表中更新相应的状态<br><img src="https://img-blog.csdnimg.cn/20200427100307480.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（5）获取某进程某页对应的页表项（getEntry）</strong><img src="https://img-blog.csdnimg.cn/2020042710031733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（6）二级机会算法，来选择牺牲页。</strong><br>遍历物理页表，寻找使用位为false的页，如果第一次遍历到use标记为true，则更新标记为false（给他第二次机会），最后返回一个标记为false的页。<br><img src="https://img-blog.csdnimg.cn/20200427100333933.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（7）用户程序在执行过程中，有关反向页表的操作</strong><br>在用户程序加载时，会为程序在反向页表中分配对应的页。<br>读取虚拟内存时，需要判断此页是否以及分配物理页，以及更新反向页表中有关此页的状态<br>写入虚拟内存时需要更新反向页表中某一页的状态（dirty和used）<br>交换文件时，需要在反向页表中回去对应页的状态来进行不同的操作。<br>在TLB未命中时，需要获取页表状态，看是否需要分配物理内存。<br><strong>（8）用户程序在执行过程中，有关TLB的操作</strong><br>在保存上下文时，需要保存此时TLB的状态，在恢复上下文时，可以恢复此时TLB的状态。<br><img src="https://img-blog.csdnimg.cn/20200427100351213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200427100357312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在发生TLB未命中时，需要选择一个TLB然后装入需要的页。<br><img src="https://img-blog.csdnimg.cn/20200427100406524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【3】task2:实现虚拟内存的按需调页</strong><br><strong>【3.1】要求分析</strong><br>使用nachos的filesystem作为交换空间，将页从磁盘移动到内存，从内存移动到磁盘。<br>为了找到未引用的页面以排除页面上的错误，您需要跟踪系统中当前正在使用的所有页面。<br>反向页表只能包含实际位于物理内存中的页的条目。您需要维护一个单独的数据结构来定位交换中的页面。<br>页面替换策略不应将任何未修改的页面写入交换文件（即未设置脏位的页面）。因此，即使页面已被移动到物理内存中，也需要将其保持在交换状态。<br>现在页面正在内存和磁盘之间来回移动，您需要确保一个进程不会在另一个进程对页面执行其他操作<br>我们建议您使用由所有进程共享的单个全局交换文件。您可以为此文件使用您希望的任何格式，但只要跟踪文件中存储不同虚拟页的位置，就应该非常简单。您可以假设将交换文件扩展到任意大小是安全的；也就是说，您不必担心此文件的磁盘空间不足。</p>
+<p><strong>【3.2】思考</strong><br>有两个原因证明交换技术是很重要的。首先，系统需要的内存量比物理内存更大时，系统内核可以把较少使用的内存页写到交换空间，把空闲出来的内存给当前的应用程序（进程）使用。其次，一个应用启动时使用的内存页，可能只是在初始化时使用，之后不会再用，操作系统就可以把这部分内存页写入交换空间，把空闲出来的内存给其他应用使用或作为磁盘高速缓存。 </p>
+<p><strong>【3.3】实现方式</strong><br>需要维护一个全局的交换文件类（SwapperController）来维护交换空间，这个交换空间用nachos的文件系统实现。<br>然后维护三个数据结构，表示已经分配交换空间的项，还未分配交换空间的项，已经交换空间剩余的位置。<br>交换文件使用的是nachos的文件类openfile，而nachos的文件类依赖于java的文件类。所有交换文件是磁盘上的一块区域（假设这块区域是无限大的）<br>需要实现各种操作，如在交换空间分配位置，写入交换文件，读取交换文件，删除交换文件中相应的位置，根据进程的虚拟页寻找物理页在交换文件中存在的位置<br><img src="https://img-blog.csdnimg.cn/20200427100437658.png" alt="在这里插入图片描述"><br>（1）用户程序加载时，需要为其的虚拟页在未分配列表分配对应的位置，表示此页存在但是还没有分配，以便在之后为其在交换空间分配相应的位置。（insertUnallocatedPage）<br><img src="https://img-blog.csdnimg.cn/202004271004467.png" alt="在这里插入图片描述"><br>（2）为用户程序的某一页在交换空间分配位置（allocatePosition）<br>先查看未分配列表中有没有此页，没有则为其分配一个位置，有则从已分配列表寻找对应的位置继续使用。<br><img src="https://img-blog.csdnimg.cn/20200427100457460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（3）交换空间的读写，都是通过偏移量决定读写的位置，根据进程的pid和虚拟页号，在已分配交换空间的列表中寻找对应的位置号position，表示此页在交换空间所占的位置。当需要读写时，读写的起始位置都是（位置号position）<em>（对应每一页的大小pagesize），然后就是读取或写入的位置，而读取或者写入的大小，则是一页的大小pagesize。<br><img src="https://img-blog.csdnimg.cn/20200427100508212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（4）用户程序使用交换空间的相关操作<br>用户程序开始执行时，需要将其有关的页加入交换空间的为分配列表<br>当发生缺页时（缺少物理页），则选择一个不常使用的页，将其在交换空间中分配位置，写入交换空间。<br><img src="https://img-blog.csdnimg.cn/2020042710052087.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当发生TLB错误时，可能需要用到之前存入交换空间的页，然后找到对应的页在交换到物理内存中继续使用。<br>当用户程序执行结束后，需要释放交换空间中为此用户程序分配的位置。<br>测试结果：<br>交换文件，在test文件夹下，是一个二进制文件：<br><img src="https://img-blog.csdnimg.cn/2020042710053364.png" alt="在这里插入图片描述"><br><strong>【4】task3:实现从用户程序延迟加载代码和数据页</strong><br><strong>【4.1】需求分析</strong><br>不是在启动时从用户程序中读取所有的代码和数据，而是在反向页表中设置页表条目，这样当出现页面错误时，从可执行文件中的页面将按需读取到内存中。<br>必须确保对可执行文件的内存映像的更改不会写入可执行文件。代码页总是只读的，因此在执行过程中，用户进程可以不修改它们。然而，来自可执行文件（代表全局变量等）的数据页可以由该过程修改。确保这些更改不会写回可执行文件。<br>除了从可执行文件中延迟加载页面外，还应根据需要分配堆栈页面。因此，当初始化时，不应该将完整的堆栈页分配给进程，而是在堆栈页上出现页错误时，应在那时分配新的堆栈页。仔细考虑堆栈页应该如何分配和初始化，特别是涉及到的安全问题<br><em>*【4.2】实现方式</em></em><br>（1）为了延迟加载用户程序的数据和代码，我们需要在loadSection时不真正加载用户程序，而是将加载用户程序所需要的地址（coffSectionAddress）和对应的虚拟页号（virtualPageNum）存起来。<br>当程序发生缺页时，如果未加载的列表包含此虚拟页号，则再为它分配相应的物理页，然后加载对应的coffsection，实现用户程序代码和数据的懒加载。<br>（2）在load时分配反向页表的条目，交换空间未分配列表<br><img src="https://img-blog.csdnimg.cn/20200427100551298.png" alt="在这里插入图片描述"><br>（3）在loadsection时现将每一个coffsection对应的逻辑页和coff文件的地址存起来，等待加载。<br><img src="https://img-blog.csdnimg.cn/20200427100559658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（4）当发生页错误时，再去分配物理页，将对应的coffsection加载到物理页中，实现懒加载<br><img src="https://img-blog.csdnimg.cn/20200427100606937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3/" data-id="ckutylm9q00540eruexwiehom" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/05/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">操作系统课程设计-nachos（java版） Project2:Multiprogramming</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

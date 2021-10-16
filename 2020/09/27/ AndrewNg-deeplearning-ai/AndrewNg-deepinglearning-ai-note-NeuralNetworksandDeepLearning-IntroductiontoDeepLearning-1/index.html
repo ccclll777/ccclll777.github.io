@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning) | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)第一周 深度学习引言(Introduction to Deep Learning)笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)第一周 深度学习引言(Introduction to Deep Learning)笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200927181221920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020092718195169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200927185432186.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200927185446801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020092718541511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020092719025281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200928110434311.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-09-27T08:21:21.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.617Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200927181221920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post- AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/" class="article-date">
+  <time datetime="2020-09-27T08:21:21.000Z" itemprop="datePublished">2020-09-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)<br><strong>第一周 深度学习引言(Introduction to Deep Learning)笔记</strong><br><span id="more"></span></p>
+<h2 id="1-2-什么是神经网络？-What-is-a-Neural-Network"><a href="#1-2-什么是神经网络？-What-is-a-Neural-Network" class="headerlink" title="1.2 什么是神经网络？(What is a Neural Network)"></a>1.2 什么是神经网络？(What is a Neural Network)</h2><p><img src="https://img-blog.csdnimg.cn/20200927181221920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="神经网络"><br>简单的神经网络：x作为输入，通过一个节点（一个单独的神经元），最终输出了y.<br>从趋近于零开始，然后变成一条直线。这个函数被称作ReLU激活函数，它的全称是Rectified Linear Unit。rectify（修正）可以理解成max(0,x).</p>
+<p><img src="https://img-blog.csdnimg.cn/2020092718195169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt=""><br>起始是样本的每一个特征（x1，x2，x3，x4），通过输入x，神经网络可以得到输出y。样本的特征会以不同的权重，传递给中间的隐藏节点，然后获得一个或多个输出y，在这个例子中就是预测的价格。如果有足够的训练样本，神经网络非常擅长计算从到的精准映射函数。</p>
+<h2 id="1-3-神经网络的监督学习-Supervised-Learning-with-Neural-Networks"><a href="#1-3-神经网络的监督学习-Supervised-Learning-with-Neural-Networks" class="headerlink" title="1.3 神经网络的监督学习(Supervised Learning with Neural Networks)"></a>1.3 神经网络的监督学习(Supervised Learning with Neural Networks)</h2><ul>
+<li><strong>监督学习让神经网络创造了很大的价值</strong><br>（1）在线广告投放（通过在网站上输入一个广告的相关信息，因为也输入了用户的信息，于是网站就会考虑是否向用户展示广告）<br>（2）计算机视觉（输入一个图像，进行图片的分类）<br>（3）机器翻译（利用神经网络输入英语句子，接着输出一个中文句子）<br>（4）自动驾驶技术（输入一幅图像，就好像一个信息雷达展示汽车前方有什么，据此，你可以训练一个神经网络，来告诉汽车在马路上面具体的位置）</li>
+<li><strong>神经网络的选择</strong><br>（1）CNN——多用于图像数据<br><img src="https://img-blog.csdnimg.cn/20200927185432186.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>（2）RNN——多用于序列数据（虽时间变化的数据，有时间轴）<br><img src="https://img-blog.csdnimg.cn/20200927185446801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>（3）标准神经网络<br><img src="https://img-blog.csdnimg.cn/2020092718541511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+<li><strong>结构化与非结构化的数据</strong><br>（1）结构化数据<br>数据库中的数据（房价预测中，房子的各种属性）<br>（2）非结构化数据<br>音频，原始音频或者你想要识别的图像或文本中的内容（这里的特征可能是图像中的像素值或文本中的单个单词）<h2 id="1-4-为什么深度学习会兴起？-Why-is-Deep-Learning-taking-off"><a href="#1-4-为什么深度学习会兴起？-Why-is-Deep-Learning-taking-off" class="headerlink" title="1.4 为什么深度学习会兴起？(Why is Deep Learning taking off?)"></a>1.4 为什么深度学习会兴起？(Why is Deep Learning taking off?)</h2></li>
+<li><strong>深度学习变热门的原因</strong><br>（1）数据规模增大（2）算法的创新（3）计算速度加快<br><img src="https://img-blog.csdnimg.cn/2020092719025281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>（1）神经网络的规模对结果的影响在数据量小的时候，体现不出来。但是在数据量增多时，神经网络之间的差别将会被放大。<br>（2）如果要获得更好的性能：要么训练一个更大的神经网络，要么投入更多的数据。但神经网络越复杂，投入的数据越多，最终用于训练的时间将会越长，需要在两者之间进行权衡。<br>（3）在小的训练集中，各种算法的优先级事实上定义的也不是很明确，所以如果你没有大量的训练集，算法的效果会取决于提取的特征的好坏。但是如果训练集足够大的情况下，算法的效果就会取决于自己设计的神经网络的好坏。</li>
+<li><strong>激活函数</strong><br>（1）sigmoid函数与ReLU函数<br><img src="https://img-blog.csdnimg.cn/20200928110434311.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>（2）sigmoid函数：<br>在参数接近负无穷时，sigmoid函数的梯度会接近零，所以学习的速度会变得非常缓慢，因为当你实现梯度下降以及梯度接近零的时候，参数会更新的很慢，所以学习的速率也会变的很慢。<br>（3）ReLU函数：<br>它的梯度对于所有输入的负值都是零，因此梯度更加不会趋向逐渐减少到零。会使梯度下降的运行速度更快</li>
+</ul>
+<p>（4）激活函数的改变，使得代码运行的更快，这也使得我们能够训练规模更大的神经网络，或者是多端口的网络。因为在训练神经网络时，很多时候是凭借直觉的，往往你对神经网络架构有了一个想法，于是你尝试写代码实现你的想法，然后让你运行一个试验环境来告诉你，你的神经网络效果有多好，通过参考这个结果再返回去修改你的神经网络里面的一些细节，然后你不断的重复上面的操作，当你的神经网络需要很长时间去训练，需要很长时间重复这一循环，如果训练时间过长，会让这个周期变得很长。</p>
+<h2 id="1-5-关于这门课-About-this-Course"><a href="#1-5-关于这门课-About-this-Course" class="headerlink" title="1.5 关于这门课(About this Course)"></a>1.5 关于这门课(About this Course)</h2><p>（1）第一周：关于深度学习的介绍。在每一周的结尾也会有十个多选题用来检验自己对材料的理解；<br>（2）第二周：关于神经网络的编程知识，了解神经网络的结构，逐步完善算法并思考如何使得神经网络高效地实现。从第二周开始做一些编程训练（付费项目），自己实现算法；<br>（3）第三周：在学习了神经网络编程的框架之后，你将可以编写一个隐藏层神经网络，所以需要学习所有必须的关键概念来实现神经网络的工作；<br>（4）第四周：建立一个深层的神经网络。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/" data-id="ckutylm6x00030eru9dhzchem" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          神经网络和深度学习(Neural Networks and Deep Learning) 第四周：深层神经网络(Deep Neural Networks)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-catalog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">吴恩达老师深度学习公开课学习笔记目录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

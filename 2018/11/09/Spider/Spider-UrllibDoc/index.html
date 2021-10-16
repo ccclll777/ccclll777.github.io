@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python3中Urllib3库的使用 | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Urllib库是Python中的一个功能强大、用于操作URL，并在做爬虫的时候经常要用到的库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python3中Urllib3库的使用">
+<meta property="og:url" content="http://yoursite.com/2018/11/09/Spider/Spider-UrllibDoc/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="摘要Urllib库是Python中的一个功能强大、用于操作URL，并在做爬虫的时候经常要用到的库。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2018110920484712.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181109205545941.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181109211029463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181109212540278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2018-11-09T13:30:09.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.621Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="模拟网络请求">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2018110920484712.png">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spider/Spider-UrllibDoc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/09/Spider/Spider-UrllibDoc/" class="article-date">
+  <time datetime="2018-11-09T13:30:09.000Z" itemprop="datePublished">2018-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python3中Urllib3库的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Urllib库是Python中的一个功能强大、用于操作URL，并在做爬虫的时候经常要用到的库。<br><span id="more"></span></p>
+<h2 id="urlopen方法"><a href="#urlopen方法" class="headerlink" title="urlopen方法"></a>urlopen方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urllib.request.urlopen(url, data&#x3D;None, [timeout, ]*, cafile&#x3D;None, capath&#x3D;None, cadefault&#x3D;False, context&#x3D;None)</span><br></pre></td></tr></table></figure>
+<p>这是urllib.request.urlopen函数，第一个参数是网站的url，第二个参数是发送post请求时需要的数据，第三个参数是超时的设置（如果在规定的时间没有返回，则会报错），后面的三个参数暂时用不到，不过多叙述。</p>
+<ul>
+<li>例子1:使用urlopen访问网页（get请求）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
+<p>.read()方法会返回网页的源代码，这里需要使用utf-8进行解码。</p>
+<ul>
+<li>例子2:使用urlopen访问网页（post请求）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">data &#x3D; bytes(urllib.parse.urlencode(&#123;&#39;word&#39;:&#39;hello&#39;&#125;), encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;,data&#x3D;data)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<p>这里会输出一些json字符串，这个网址是用来做http测试的一个网址，它会返回一些请求测试数据。<br>http测试网址：<a target="_blank" rel="noopener" href="http://httpbin.org">http://httpbin.org</a></p>
+<ul>
+<li>例子3:使用urlopen的timeout参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<p>如果没有超时，则会成功返回。如果超时，则程序报错。</p>
+<h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><ul>
+<li>获取响应类型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(type(response))</span><br></pre></td></tr></table></figure>
+<p> 这里使用type可以获取response的响应类型，结果如下。<br> <img src="https://img-blog.csdnimg.cn/2018110920484712.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>获取状态码，响应头<br>这两个参数可以在浏览器的检查元素中network版块下找到，这里利用urllib的方法返回这两个参数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">response &#x3D; urllib.request.urlopen(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,timeout&#x3D;1)</span><br><span class="line">print(response.status)</span><br><span class="line">print(response.getheaders())</span><br><span class="line">print(response.getheader(&#39;Server&#39;))&#x2F;&#x2F;这里会返回Server后面的参数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20181109205545941.png" alt="在这里插入图片描述"><br>200表示连接成功</p>
+<ul>
+<li>使用request方法构造post请求</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">dict &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;Germey&#39;</span><br><span class="line">&#125;</span><br><span class="line">data &#x3D; bytes(parse.urlencode(dict),encoding&#x3D;&#39;utf8&#39;)</span><br><span class="line">req &#x3D; request.Request(url&#x3D;url,data &#x3D; data,headers&#x3D;headers,method&#x3D;&#39;POST&#39;)</span><br><span class="line">response &#x3D; request.urlopen(req)</span><br><span class="line">print(response.read().decode(&#39;utf-8&#39;))</span><br></pre></td></tr></table></figure>
+<p>这个代码和第一个发送post请求的代码有所不同，但是返回结果相同，这里可以添加更多参数进行请求,在这里传入了base64编码后的from-data数据，headers，以及制定了method为post请求。<br>构造了request请求，返回结果为：<br><img src="https://img-blog.csdnimg.cn/20181109211029463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>设置代理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from urllib import request,parse</span><br><span class="line">import urllib.request</span><br><span class="line">proxy_handler &#x3D; urllib.request.ProxyHandler(&#123;</span><br><span class="line">    &#39;http&#39;:&#39;http:&#x2F;&#x2F;127.0.0.1&#39;,</span><br><span class="line">    &#39;https&#39;:&#39;https:&#x2F;&#x2F;127.0.0.1&#39;</span><br><span class="line">&#125;)#里面的代理ip是你自己的代理的ip</span><br><span class="line">opener &#x3D; urllib.request.build_opener(proxy_handler)#加入代理，构造opener</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#请求网页</span><br><span class="line">print(response.read())</span><br></pre></td></tr></table></figure>
+<ul>
+<li>cookie<br>cookie是维持网页登陆状态需要用到的东西，里面储存了登陆信息，保存在本地，在写爬虫是，用cookie处理需要登陆的网页。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">cookie &#x3D; http.cookiejar.CookieJar()#将cookie声明为cookiejar的对象</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)#借助header处理cookie</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)#使用build_opener传入header</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)#利用opener打开百度</span><br><span class="line">for item in cookie:</span><br><span class="line">    print(item.name+&quot;&#x3D;&quot;+item.value)#cookie会被浏览器赋值，然后打印出来</span><br></pre></td></tr></table></figure>
+<p>具体分析在代码中，下面是执行结果：<br><img src="https://img-blog.csdnimg.cn/20181109212540278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>将cookie保存为本地文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import http.cookiejar,urllib.request</span><br><span class="line">filename &#x3D; &quot;cookie.txt&quot;</span><br><span class="line">cookie &#x3D; http.cookiejar.MozillaCookieJar(filename)</span><br><span class="line">hander &#x3D;  urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line">opener &#x3D; urllib.request.build_opener(hander)</span><br><span class="line">response &#x3D; opener.open(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">cookie.save(ignore_discard&#x3D;True,ignore_expires&#x3D;True)</span><br></pre></td></tr></table></figure>
+<p>和刚才相似，只是将cookie保存到了本地，可以在cookie没有实效之前继续调用。<br>这里的cookie可以用不同的形式保存，只需要修改<br>cookie = http.cookiejar.MozillaCookieJar(filename)即可。</p>
+<p>以上为本篇博客内容，下一次继续学习request库的使用</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/09/Spider/Spider-UrllibDoc/" data-id="ckutylm7y00160eru5fctbr45" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/10/Spider/Spider-RequestsDoc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python3中Requests库的使用
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

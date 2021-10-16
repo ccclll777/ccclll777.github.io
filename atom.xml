@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ccclll777&#39;s blogs</title>
+  <icon>http://yoursite.com/icon.png</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2021-10-16T15:32:53.621Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>ccclll777</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pytorch强化学习算法实现</title>
+    <link href="http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/"/>
+    <id>http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/</id>
+    <published>2020-12-12T02:54:37.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Pytorch框架实现了强化学习算法Policy Gradient/DQN/DDGP&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyTorch常用工具模块</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/</id>
+    <published>2020-12-09T13:32:23.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch中神经网络工具箱nn模块</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/</id>
+    <published>2020-12-09T13:25:38.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;torch.nn专门为深度学习而设计的模块。torch.nn的核心数据结构是&lt;code&gt;Module&lt;/code&gt;，它是一个抽象概念，既可以表示神经网络中的某个层（layer），也可以表示一个包含很多层的神经网络。在实际使用中，最常见的做法是继承&lt;code&gt;nn.Module&lt;/code&gt;，撰写自己的网络层.&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch中的Autograd</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/</id>
+    <published>2020-12-09T13:25:19.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍Pytorch中的自动微分系统（Autograd）&lt;br&gt;用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传播过程自动构建计算图，并执行反向传播。&lt;/p&gt;
+&lt;p&gt;计算图(Computation Graph)是现代深度学习框架如PyTorch和TensorFlow等的核心，其为高效自动求导算法——反向传播(Back Propogation)提供了理论支持，了解计算图在实际写程序过程中会有极大的帮助。本节将涉及一些基础的计算图知识，但并不要求读者事先对此有深入的了解。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pytorch中的Tensor</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Tensor/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Tensor/</id>
+    <published>2020-12-09T13:25:08.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍Pytorch中的张量系统（Tensor）&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyTorch入门知识</title>
+    <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/"/>
+    <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/</id>
+    <published>2020-12-09T03:45:55.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;PyTorch的简洁设计使得它入门很简单，在深入介绍PyTorch之前，本节将先介绍一些PyTorch的基础知识，使得读者能够对PyTorch有一个大致的了解，并能够用PyTorch搭建一个简单的神经网络。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="pytorch" scheme="http://yoursite.com/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow与强化学习</title>
+    <link href="http://yoursite.com/2020/12/08/Tensorflow/Tensorflow-and-Reinforcement-learning/"/>
+    <id>http://yoursite.com/2020/12/08/Tensorflow/Tensorflow-and-Reinforcement-learning/</id>
+    <published>2020-12-08T12:46:47.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用tensorflow框架实现强化学习算法，其中包括Policy Gradient ，A3C，DQN等算法&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>强化学习基础理论</title>
+    <link href="http://yoursite.com/2020/12/07/ReinforcementLearning/Reinforcement-Learning-Basic-Theory/"/>
+    <id>http://yoursite.com/2020/12/07/ReinforcementLearning/Reinforcement-Learning-Basic-Theory/</id>
+    <published>2020-12-07T06:20:59.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;强化学习基础理论。强化学习（Reinforcement learning），与监督学习，无监督学习是类似的，是一种统称的学习方式。它主要利用智能体与环境进行交互，从而学习到能获得良好结果的策略。与有监督学习不同，强化学习的动作并没有明确的标注信息，只有来自环境的反馈的奖励信息，它通常具有一定的滞后性，用于反映动作的“好与坏”。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="强化学习" scheme="http://yoursite.com/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow与自编码器</title>
+    <link href="http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Encoder-Decoder/"/>
+    <id>http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Encoder-Decoder/</id>
+    <published>2020-12-06T13:39:03.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Tensorflow实现自编码器&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow与循环神经网络</title>
+    <link href="http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Recurrent-neural-network/"/>
+    <id>http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Recurrent-neural-network/</id>
+    <published>2020-12-06T07:56:00.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;                                                                使用Tensorflow实现循环神经网络的相关算法
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow与卷积神经网络</title>
+    <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Convolutional-Neural-Network/"/>
+    <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Convolutional-Neural-Network/</id>
+    <published>2020-12-04T14:57:37.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Tensorflow实现卷积神经网络的相关算法&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow中Keras 高层接口</title>
+    <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/"/>
+    <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/</id>
+    <published>2020-12-04T05:41:13.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TensorFlow中的子模块 tf.keras中快速构建神经网络的高层接口&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow构建简单神经网络</title>
+    <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Neural-Networks/"/>
+    <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Neural-Networks/</id>
+    <published>2020-12-04T03:22:47.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Tensorflow2.0构建简单的神经网络&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow2.0进阶知识</title>
+    <link href="http://yoursite.com/2020/12/03/Tensorflow/Tensorflow-advanced-knowledge/"/>
+    <id>http://yoursite.com/2020/12/03/Tensorflow/Tensorflow-advanced-knowledge/</id>
+    <published>2020-12-03T08:44:59.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Tensorflow2.0的进阶知识&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow2.0基础知识</title>
+    <link href="http://yoursite.com/2020/12/02/Tensorflow/Tensorflow-basic-knowledge/"/>
+    <id>http://yoursite.com/2020/12/02/Tensorflow/Tensorflow-basic-knowledge/</id>
+    <published>2020-12-02T14:16:51.000Z</published>
+    <updated>2021-10-16T15:32:53.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TensorFlow 是一个面向深度学习算法的科学计算库，内部数据保存在张量(Tensor)对象 上，所有的运算操作(Operation，简称 OP)也都是基于张量对象进行的。这里介绍Tensorflow2.0的基础操作方法。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://yoursite.com/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)</title>
+    <link href="http://yoursite.com/2020/09/28/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-ShallowNeuralNetworks/"/>
+    <id>http://yoursite.com/2020/09/28/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-ShallowNeuralNetworks/</id>
+    <published>2020-09-28T06:56:34.000Z</published>
+    <updated>2021-10-16T15:32:53.617Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br&gt;&lt;strong&gt;第三周：浅层神经网络(Shallow neural networks)笔记&lt;/strong&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第二周：神经网络的编程基础(Basics of Neural Network programming)</title>
+    <link href="http://yoursite.com/2020/09/28/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-BasicsofNeuralNetworkProgramming/"/>
+    <id>http://yoursite.com/2020/09/28/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-BasicsofNeuralNetworkProgramming/</id>
+    <published>2020-09-28T03:53:47.000Z</published>
+    <updated>2021-10-16T15:32:53.617Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br&gt;&lt;strong&gt;第二周：神经网络的编程基础(Basics of Neural Network programming)&lt;/strong&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第四周：深层神经网络(Deep Neural Networks)</title>
+    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/"/>
+    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/</id>
+    <published>2020-09-27T08:21:21.000Z</published>
+    <updated>2021-10-16T15:32:53.617Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br&gt;&lt;strong&gt;第四周：深层神经网络(Deep Neural Networks)笔记&lt;/strong&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)</title>
+    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/"/>
+    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/</id>
+    <published>2020-09-27T08:21:21.000Z</published>
+    <updated>2021-10-16T15:32:53.617Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br&gt;&lt;strong&gt;第一周 深度学习引言(Introduction to Deep Learning)笔记&lt;/strong&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>吴恩达老师深度学习公开课学习笔记目录</title>
+    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-catalog/"/>
+    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-catalog/</id>
+    <published>2020-09-27T07:50:23.000Z</published>
+    <updated>2021-10-16T15:32:53.617Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;吴恩达老师深度学习公开课学习笔记目录（记录一些自己认为重要的内容，方便自己以后查看）&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://yoursite.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+</feed>

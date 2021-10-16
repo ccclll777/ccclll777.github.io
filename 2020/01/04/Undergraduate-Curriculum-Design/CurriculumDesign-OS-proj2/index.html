@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>操作系统课程设计-nachos（java版） Project2:Multiprogramming | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="操作系统课程设计Project2多道程序设计系统设计与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统课程设计-nachos（java版） Project2:Multiprogramming">
+<meta property="og:url" content="http://yoursite.com/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj2/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="操作系统课程设计Project2多道程序设计系统设计与实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094630455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094642283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094647270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094719239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094735126.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042709475137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094801668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427094810270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095040793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095106369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095143806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095146379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095155987.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095301594.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095309309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095354441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095411265.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095454308.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042709550671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202004270955328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095536131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095549906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427095557285.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-01-04T01:37:34.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.621Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200427094630455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj2/" class="article-date">
+  <time datetime="2020-01-04T01:37:34.000Z" itemprop="datePublished">2020-01-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统课程设计-nachos（java版） Project2:Multiprogramming
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>操作系统课程设计Project2多道程序设计系统设计与实现<br><span id="more"></span></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/ccclll777/nachos_os_design">https://github.com/ccclll777/nachos_os_design</a><br><strong>如果觉得有用，请点个star</strong></p>
+<h2 id="nachos用户程序初探"><a href="#nachos用户程序初探" class="headerlink" title="nachos用户程序初探"></a>nachos用户程序初探</h2><p>nachos的用户程序需要使用mips交叉编译，虽然伯克利的管网给出了很多操作系统版本的mips编译器，但是经过一天的挣扎，最后还是在64为的centos上，对用户程序成功进行了编译。</p>
+<p>编译时，需要修改makefile，将自己新加的程序加入makefile，然后在test文件夹下执行make，即可成功编译用户程序。</p>
+<p>nachos提供了coff文件的加载类，nachos将coff文件加载之后，会将其分成若干个coffsection的段，然后对每一个段进行loadpage的操作，将其加载到物理内存中。而coff类和coffsection就是做用户程序加载工作的。</p>
+<p>而nachos用户程序调用内核的系统调用，是通过test文件中的start.s进行链接的，此文件包含用于初始化进程的汇编语言代码。它还提供了允许调用系统调用的系统调用“stub code”。这利用了特殊的mips指令syscall，它捕获到nachos内核来调用系统调用。</p>
+<p>对象文件与libnachos.a链接以生成与Nachos兼容的MIPS二进制文件，其扩展名为*.coff。</p>
+<h2 id="Project2-Multiprogramming多道程序设计系统设计与实现"><a href="#Project2-Multiprogramming多道程序设计系统设计与实现" class="headerlink" title="Project2:Multiprogramming多道程序设计系统设计与实现"></a>Project2:Multiprogramming多道程序设计系统设计与实现</h2><p><strong>【1】总体描述</strong><br>Nachos的第二阶段是支持多道程序设计。和第一个作业一样，我们给你一些你需要的代码；你的工作是完成系统并增强它。到目前为止，您为nachos编写的所有代码都是操作系统内核的一部分。在实际的操作系统中，内核不仅在内部使用其过程，而且允许用户级程序通过系统调用访问其一些例程。<br>首先需要理解，Processor类模拟mips处理器，SerialConsole类模拟控制台，FileSystem是一个文件系统接口。要访问文件，请使用machine.stubfilesystem（）返回的文件系统。此文件系统访问测试目录中的文件。UserKernel类一个多道程序设计的内核，UserProcess类用户进程；管理空间地址，并将程序加载到虚拟内存中。UThread类能够执行用户mips代码的线程。SynchConsole类一个同步控制台；使得在多个线程之间共享机器的串行控制台成为可能。</p>
+<p><strong>【2】task1:实现文件系统调用</strong><br><strong>【2.1】要求分析</strong><br>提供文件系统的七个系统调用，halt(停机), creat(创建并打开磁盘文件),open(打开磁盘文件),read(读取文件), write(写入文件), close(关闭), unlink(删除磁盘文件)。 我们需要为每一个用户程序提供一个进程号，用来区别他是不同的进程。<br>要确保如下几点:<br>1)稳定性,不能因为一个进程的非法系统调用就使操作系统崩溃,而应该返回错误代码。<br>2)halt()调用只能由第一个进程(root process)执行。<br>3)系统调用需要读写内存时,通过 readVirturalMemory和writeVirtualMemory进行。<br>4)文件名以null结尾,不超过256字符。<br>5)如果系统调用出错,应返回-1。<br>6)为每个打开的I0文件分配一个“文件描述符”,用整数表示每个进程最多可以拥有16个。其中0和1应分配给标准输入和标准输出(即屏幕),这由<br>SynchConsole类管理。不同进程可以用相同的文件描述符处理不同的文件。<br>7)Nachos已经提供了一个简单的文件系统 FileSystem(Machine包中),通过 ThreadedKernel. fileSystem访问<br>8)系统不需要考虑文件访问的互斥等问题。 </p>
+<p><strong>【2.2】实现方式</strong><br>（1）关闭文件halt（）在关闭之前先判断这个进程的进程号，看他是不是root进程，如果是则可以调用halt（）。<br><img src="https://img-blog.csdnimg.cn/20200427094630455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（2）首先定义文件描述符的类，属性为文件名filename以及操作文件系统的nachos的Openfile类。每个用户程序都会最多拥有16个文件描述符，然后根据要求将标准输入和输出分配对应的文件描述符。<br><img src="https://img-blog.csdnimg.cn/20200427094642283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200427094647270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（3）create（）系统调用，nachos在载入一个用户进程执行时，会把程序载入nachos的内存，在打开或者新建文件时  会返回一个文件描述符  读写文件要使用文件描述符来指定读写的文件若进程已打开相同的文件描述符，则不创建返回该文件的文件描述符。</p>
+<p>创建一个文件时，首先根据传入的虚拟内存中的文件地址，读入虚拟内存中存储的文件名。<br>然后根据文件名，使用nachos的文件系统打开文件（没有则会创建对应的文件），之后为文件分配对应的文件描述符，并将文件描述符和打开的文件存在对应的数据结构中，最后返回文件描述符。<br><img src="https://img-blog.csdnimg.cn/20200427094719239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（4）open（）系统调用<br>首先根据传入的虚拟内存中的文件地址，读入虚拟内存中存储的文件名。<br>然后根据文件名，使用nachos的文件系统打开文件，之后为文件分配对应的文件描述符，并将文件描述符和打开的文件存在对应的数据结构中，最后返回文件描述符。<br><img src="https://img-blog.csdnimg.cn/20200427094735126.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（5）read（）系统调用<br>read系统调用需要读取nachos文件系统的信息，然后将其写入用户程序的虚拟内存（主存中），传入的参数是，打开文件的文件描述符，内存的地址以及大小。首先在文件描述符数组中，用文件描述符获取到对应的nachos文件系统的对象，然后调用文件系统的read方法读取相应的内容，通过writeVirturalMemory（）写入主存中。<br><img src="https://img-blog.csdnimg.cn/2020042709475137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（6）close（）系统调用，将之前用户程序创建的文件描述符移除，需要传入对应的文件描述符，找到对应的nachos文件系统对象，现将文件通过OpenFile关闭，然后将此文件描述符从文件描述符列表中移除。<br><img src="https://img-blog.csdnimg.cn/20200427094801668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（7）unlink系统调用<br>需传入对应的文件描述符，然后从内存中读取文件名，然后通过文件名找到对应的文件描述符，通过OpenFile类的remove操纵将此文件从磁盘删除，最后清除此文件描述符。<br><img src="https://img-blog.csdnimg.cn/20200427094810270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【2.3】测试及其结果</strong><br>我们测试的文件的创建，打开，写入，读出，关闭，并且测试了如果创建超过16个文件描述符，是否可以停止分配，返回-1.<br><img src="https://img-blog.csdnimg.cn/20200427095040793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【3】task2:完成多道程序设计的支持</strong><br><strong>【3.1】要求分析</strong><br>完成对多道程序的支持。已给出的代码只能一次运行一个进程,而你要使它<br>支持多道程序。 从分配物理内存入手,不同的进程在在内存使用上不会重叠。用户程序不会使用 malloc()或free(),既用户没有动态内存分配的需求。故在装入程序时就要为每个进程一次性分配固定的物理内存,在进程结 束时收回它们。还需要实现简单的虚拟内存方案:每个进程的地址空间是连续的虚拟内存(以页面为单位,1页=1024字节),但这些连续的虚拟页面在物理内存中却不一定是连续的。 这个方案很简单,虚拟空间的总容量和物理空间的总容量相等,映射机制只是从虚拟内存到物理内存的一一映射。<br><strong>【3.2】实现方式</strong><br>首先我们需要使用页表，每一个页表项都是TranslationEntry类的对象，我们还需要一个全局的存放空闲页表的队列freePages，并且实现对物理页的分配和释放。在分配物理页时，为了避免同一页被分配给两个用户程序，所以需要加锁来保证分配页时的原子性。<br>在加载用户程序时，coff文件分为若干的段，每一段都是一个coffsection类型的对象，每一个coffsection又包括若干个页。当加载用户程序时，需要给他从空闲页中分配若干页，然后加载到页表中。<br><strong>（1）对空闲页表的分配和释放getFreePage（）addFreePage（）</strong></p>
+<p>空闲页标记的队列使用链表来实现，在加载用户程序是，会使用getFreePage（）来分配页表项，在释放时会使用addFreePage（）来回收页表项。并且使用信号量来保证分配页表时的原子性。<br><img src="https://img-blog.csdnimg.cn/20200427095106369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（2）loadSection（）加载用户程序</strong><br>在用户程序启动时，使用load将用户程序从磁盘装入内存，然后装入coffSection，在这时为每一个虚拟页分配一个物理页，在得到可用的物理页号之后，就装入所有的页，为段中每一个虚拟页在pageTable中创建一个TranslationEntry的对象，并为其添加信息（虚拟页号，物理页号等）然后调用coffsection的loadpage方法将每一页的内容读入。读入时，进行了物理地址和逻辑地址的关联，将程序的每一块按照顺序对应于物理地址导入到主存当中。<br><img src="https://img-blog.csdnimg.cn/20200427095143806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427095146379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（3）unloadSection（）在用户程序执行结束释放资源时，需要情况pageTable的对应页，然后释放对应freePages中的物理页。<br><img src="https://img-blog.csdnimg.cn/20200427095155987.png" alt="在这里插入图片描述"><br>（4）readVirturalMemory（）在读取虚拟内存时，需要根据地址提取出虚拟页号以及页偏移，然后从页表pageTable中找到对应的物理页，然后将对应的内容复制到数组中。<br><img src="https://img-blog.csdnimg.cn/20200427095301594.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（5）writeVirturalMemory（）写入虚拟内存时，也是需要将虚拟地址转化为虚拟页，然后寻找出对应的物理页，根据是否是只读文件，判断是否能写入。<br><img src="https://img-blog.csdnimg.cn/20200427095309309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【4】task3:实现系统调用</strong><br><strong>【4.1】要求分析</strong><br>实现调度用户程序的三个系统调用exec，join和exit。<br>exec为启动一个新进程；join与内核线程之间的join操作类似，exit将立即结束当前进程。<br>子进程的状态是完全私有的，父子进程之间不直接共享存储器或文件描符。注意两个过程当然可以打开相同的文件;例如,所有的进程应该有的0和1映射到系统控制台的文件描述符。<br>不像 KThread.join(),只有一个进程的父进程可以调用join()。举例来说,<br>如果A创建B并且B创建C,A不允许join()到C中,但B被允许join（）到C 中。<br>加入需要一个进程ID作为参数,用于唯一标识其父进程希望加入的子进程。<br>进程ID应该是全局唯一的正整数,在每个进程创建时分配进程ID。解决这个问题的最简单的方法就是保持一个表明接下来的进程ID分配的静态计数器。<br>当进程调用exit(),它的线程应立即终止,而这个过程应该清理与它相关的任何状态(也就是释放内存,关闭打开的文件等)。如果一个进程异常退出执行相同的清理。<br><strong>【4.2】实现方式</strong><br>在进程初始化时，需要为其分配一个pid，分配pid时需要使用信号量保证他能原子的执行。由于我们要实现子进程的exec，join等操作，所以我们需要保存子进程的pid，以便在之后调度时使用。<br><strong>（1）exec（）系统调用</strong><br>参数为依次为文件名地址，参数个数，参数列表地址。<br>我们需要做的是：在虚拟内存中读出文件名；处理参数，用参数列表地址作为虚拟内存地址得到参数列表数组的首地址，然后使用readVirturalMemoryString依次读出每一个参数；之后使用newUserProcess创建子进程，将文件和参数列表加载到子进程；最后使用execute方法执行子进程，同时将这个子进程的父进程置为这个进程。<br><img src="https://img-blog.csdnimg.cn/20200427095354441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（2）join系统调用</strong><br>参数依次为子进程编号，保存子进程状态的地址。<br>需要做的工作是：利用进程号确定join的是那个进程，检查childProcesses，遍历子进程列表，确定join的进程是子进程。如果子进程编号不存在，则出错；之后就讲父进程休眠，子进程执行结束，唤醒父进程，加入就绪队列等待调度。<br><img src="https://img-blog.csdnimg.cn/20200427095411265.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（3）exit（）系统调用</strong><br>1.首先关闭coff  将所有的打开文件关闭  将退出状态置入，<br>2.如果该进程有父进程   看是否执行了join方法 如果执行了就将其唤醒  同时将此进程从子进程链表中删除<br>3.调用unloadsections释放内存，调用kthread。finish结束线程<br>4.如果是最后一个线程 则停机<br><img src="https://img-blog.csdnimg.cn/20200427095454308.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【4.3】测试及其结果</strong><br>先执行sh.coff，之后在nachos的控制台上执行其他的用户程序，sh.coff里面执行了父进程与子进程之间的调度关系。并且可以测试task2的支持多道程序设计的实现也是没有问题的。<br><img src="https://img-blog.csdnimg.cn/2020042709550671.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【5】task4:实现彩票程序调度</strong><br><strong>【5.1】要求分析</strong><br>实现彩票调度这个类扩展自PriorityScheduler类，只是做了一点修改：（1）“优先级”的概念变成了“彩票”（表示该线程下次被允许的几率）<br>（2）在调度过程中，并不是选择彩票数最多的进程执行，而是随机抽取一张彩票，让彩票的主人运行，这样，彩票越多，下次执行的机会就越大。<br><strong>【5.2】实现方式</strong><br>getEffectivePriority中将选取最大优先级的过程改成将所有等待锁的线程的彩票加到拥有锁的线程上，然后修改nextThread：遍历一遍队列，计算出当前队列中所有进程的彩票总数（考虑过彩票的捐赠），然后生成一个随机数x代表抽取的彩票，最后在遍历一遍队列，用累加器t计算彩票的总数，当t的值大于x的值时，说明当前循环到的线程正好落在目标区间内，然后选出该线程。<br><img src="https://img-blog.csdnimg.cn/202004270955328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427095536131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【5.3]测试以及结果</strong><br><img src="https://img-blog.csdnimg.cn/20200427095549906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200427095557285.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>新建了5个线程，分别给他们10，15，20，25，30张彩票，然后将他们以不同的顺序放到队列中，等待调度，然后计算不同进程的优先级。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj2/" data-id="ckutylm9p00510eru3v2l5w1m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/03/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">操作系统课程设计-nachos（java版） Project1:Build a thread system</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

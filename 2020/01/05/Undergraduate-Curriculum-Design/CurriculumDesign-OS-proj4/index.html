@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems | ccclll777&#39;s blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="操作系统课程设计Project3（网络和分布式系统）系统设计与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems">
+<meta property="og:url" content="http://yoursite.com/2020/01/05/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj4/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="操作系统课程设计Project3（网络和分布式系统）系统设计与实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101503727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101507723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101524445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101528197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101541101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101544195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101555562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101615163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200427101628219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-01-05T07:37:34.000Z">
+<meta property="article:modified_time" content="2021-10-16T15:32:53.621Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="ccclll777&#39;s blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ccclll777&#39;s blogs</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/05/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj4/" class="article-date">
+  <time datetime="2020-01-05T07:37:34.000Z" itemprop="datePublished">2020-01-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统课程设计-nachos（java版） Project4:Networks and Distributed Systems
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>操作系统课程设计Project3（网络和分布式系统）系统设计与实现<br><span id="more"></span></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a target="_blank" rel="noopener" href="https://github.com/ccclll777/nachos_os_design">https://github.com/ccclll777/nachos_os_design</a><br><strong>如果觉得有用，请点个star</strong></p>
+<h2 id="初探与网络系统有关的类"><a href="#初探与网络系统有关的类" class="headerlink" title="初探与网络系统有关的类"></a>初探与网络系统有关的类</h2><p>有关网络上数据传输的类为nachos.machine.Networklink和nachos.network.postoffice,在两者的配合下，进行数据包的发送与接收。<br><strong>【1】Networklink类</strong><br>同一个机器上运行的不同nachos实例可以使用networklink类通过网络相互通信。<br>其中有多个线程进行线程之间的同步，来进行网络消息的传输。<br>在接收数据包时：<br>如果已经收到消息时，会会进行wait（），直到允许接收数据包时（某个变量为null），会进行notify（）。<br>而底层数据包的收发是经过java的DatagramSocket类进行的，将接收到的消息通过DatagramPacket类拷贝到内存中的某个地方。<br>在发送数据包时：<br>会构造一个DatagramPacket的对象，然后使用DatagramSocket进行数据包的发送。<br>数据包的发送和接受是通过多线程，以及中断驱动的，并且在发送消息和接收消息的过程中，通过synchronized保证临界区的互斥。在通过DatagramSocket收到消息后，某个线程得到了自己需要的数据，就开始构造数据包，然后将其存到某个变量中，当postoffice接收消息时，会将这个变量的内容置为空，然后启用某个线程，继续接收数据包。<br>在发送数据时，如果有从postoffice传来的数据，会存到某个变量中，然后如果这个变量不为空，某个线程就会将数据通过DatagramSocket发送出去，然后初始化变量为null，等待下一个消息。<br><strong>【2】PostOffice类</strong><br>PostOffice类使用Networklink类中的方法进行消息的收发。<br>它给每一个端口都准备一个消息队列，在收到消息时，会将添加到对应端口的队列中，然后可以唤醒等待读取消息的进程。<br>在接收消息时，会指定端口，获取到它队列中的消息，如果队列此时为空，线程将会休眠，直到接收到消息。（经过修改，在接收消息时，如果对应的消息队列为空，不会将线程阻塞，而是返回空，等待下一次遍历）<br>当一个包被发送后，会使用信号量，将线程停止，直到此数据包被接收或者被丢弃。<br>当接收消息时，如果没有消息，则会使用信号量将线程停止，直到数据包到达，在让线程继续执行。</p>
+<p>之后会在此基础上构建网络系统的传输工作</p>
+<h2 id="Project4-Networks-and-Distributed-Systems（网络和分布式系统）系统设计与实现"><a href="#Project4-Networks-and-Distributed-Systems（网络和分布式系统）系统设计与实现" class="headerlink" title="Project4:Networks and Distributed Systems（网络和分布式系统）系统设计与实现"></a>Project4:Networks and Distributed Systems（网络和分布式系统）系统设计与实现</h2><p><strong>【1】总体描述</strong><br>我们将为您提供一些低级的网络通信设施；您将在这些设施之上构建一个更好的抽象，然后将该抽象用于构建分布式聊天程序。<br>网络中的每个节点都将作为nachos的实例来实现。因此，您将为每个网络节点运行一个jvm；这些jvm将在同一台实际机器上运行，即使我们假装它们分布在网络上。 </p>
+<p>每个nachos“节点”都有一个到网络的连接，该连接是使用UDP socket实现的。 nachos.machine.networklink类为您提供此功能。 </p>
+<p>machine/NetworkLink.java  物理网络硬件的仿真，网络接口与控制台类似，只是传输单元是一个包而不是字符。网络在节点之间提供有序、不可靠的有限大小数据包传输。此类提供send（）和receive（）消息以在网络上发送和接收数据包。由于此类模拟网络设备驱动程序，因此必须提供保护对网络链接的访问并确保其正确使用的机制。网络链路在接收数据包和传输数据包后生成中断；您将使用这些中断在低级网络链路接口上实现高级通信机制。</p>
+<p>machine/Packet.java 一个网络传输单元  一个包的最大大小由 machine.Packet.maxPacketLength给出，它恰好是32字节。 每个包包括4byte的头文件，每个包都包含一个4字节的头（详细信息请参见packet.java）和一个28字节的payload。使用常量machine.packet.maxcontentslength来表示代码中有效payload的大小（即，不要使用值为28字节的硬代码）。 </p>
+<p>post office提供了比原始网络链接更方便的通信抽象。 它在网络链路的节点到节点通信之上提供用户到用户的通信，但不提供可靠的消息传递。在这个项目中，您必须在 PostOffice和网络链接抽象之上实现其他层。<br><strong>【2】task1:实现两个网络系统调用accept（）和connect（）</strong><br><strong>【2.1】要求分析</strong><br>它们在连接端点之间提供可靠的、面向连接的字节流通信。连接端点是与端口号组合在一起的链接地址。用户程序通过使用远程网络链接ID（也称为主机ID）和端口号调用connect（）来连接到远程节点，远程节点必须调用accept（）系统调用来接受连接；系统调用采用可进行连接的本地端口号。</p>
+<p>在sockets上实现read（）和write（）必须提供无消息大小限制的全双工、可靠的字节流通信。这意味着数据包可以同时在连接上双向流动。<br>需要使用滑动窗口协议。</p>
+<p>因为连接是全双工的，所以每个通信方向都需要一个单独的滑动窗口。此外，每个连接都应保持自己的滑动窗口。这意味着，如果到同一端口有多个连接，则一次可以在每个连接（每个方向）上发送多达16个未确认的数据包。</p>
+<p>连接上的每个单向数据流都需要发送方的一个不同的发送缓冲区和接收方的一个不同的接收缓冲区。每个发送缓冲区可以任意增大，但每个接收缓冲区可以容纳不超过16个包。</p>
+<p>读/写系统调用不应等待来自远程主机的数据包。如果端口上没有可读取的数据，则read立即返回。写入将端口上的数据排队，然后返回而不等待确认。（但是，在建立连接之前，连接将被阻塞。）<br>nachos传输协议规范：</p>
+<p>一个端点首先调用connect（）系统调用。此端点称为活动端点。另一个端点（被动式端点）上的进程稍后必须调用accept（）系统调用。当调用这些系统调用时，底层协议执行双向握手。当用户进程调用connect（）系统调用时，活动端点发送同步数据包（syn）。这将导致创建挂起的连接。在被动端点的用户进程调用accept（）系统调用之前，此挂起连接的状态必须存储在接收器上。调用accept（）时，被动端向主动端发送一个syn确认数据包（syn/ack），并建立连接。 </p>
+<p>一旦建立了连接，双方就可以发送数据包。每个包都有一个唯一的32位序列号。在接收到数据packet时，接收器将确认packet（ack）发回给发送者。与tcp一样，nachos传输协议使用滑动窗口。但是，与tcp不同的是，窗口的大小总是固定在16个数据包。发送方有责任确保其发送的未确认数据包不超过16个。为了保证最终接收到所有数据包，发送方必须定期重新传输已发送但尚未确认的任何数据包。重传过程的频率应为每20000个时钟周期一次。 </p>
+<p><strong>【2.2】实现方式</strong><br>由于我们要实现网络协议，所以我们需要研究数据包的构成，构造一个packet类，构造对应的包的内容，nachos的传输协议给出了数据包的格式。</p>
+<p>我们还需要一个特殊的文件类，这个文件类记录了发送方和接受方的地址信息，以便我们在网络传输中，可以根据不同的发送方来定位不同的文件，实现传输工作，并且在读写时，不是简单的内存操作，需要使用对应的方法接受指定端口的数据，或者向对应的端口发送数据。<br>然后需要实现端口的分发，为每一个连接分发不同的端口。而消息的接受和发送，我们只需要将消息传到发送消息的线程就能执行消息的发送，接收消息时从消息队列接收消息即可。</p>
+<p><strong>（1）实现固定的数据包格式Packet类</strong><br>nachos已经提供了基本的数据包类型，我们需要根据nachos的传输协议规范构造相对应的数据包。<br>我们需要记录每个数据包的源地址和目标地址，并且由于要实现滑动窗口协议，我们需要给每一个数据包一个序列号，以及不同的状态。我们需要根据传输协议定义不同的状态位。<br><img src="https://img-blog.csdnimg.cn/20200427101446992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（2）connection（）实现网络所使用的文件系统，传输和接受对应的网络文件。</strong><br>我们需要继承Openfile类，然后重载文件的read和write操作。<br>read操作需要获取某个指定端口的数据，获取数据时，如果对应的端口没有数据传回，则会阻塞（修改之后变为，会返回空，然后客户端对标记进行处理）。在接收到数据之后，会将数据复制到目标数组，由于是滑动窗口协议，所以还要更新序列号。<br>write操作需要读取内存中的某一段数据，然后将其构造成数据包，发送到对应的目的地<br>注：底层数据包的接受和发送依赖于java的DatagramSocket类。<br><img src="https://img-blog.csdnimg.cn/20200427101503727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427101507723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（3）系统调用connect（）和accept（）</strong><br>根据nachos操作系统的传输协议实现，底层协议需要执行双向握手。<br>当用户程序A要主动连接用户程序B时，需要调用connect的系统调用，指定B的ip地址和端口，内核应该给A分配对应的文件描述符，文件类型为connection类型（为网络创建的文件类型），然后构造对应的数据包（状态为syn），发送给用户程序B，用户程序在accept（）到指定端口的syn数据包时，会将此包的端口信息添加，然后分配一个文件描述符，文件类型也为connection类，然后确实对方是否要连接自己，如果是正确的连接，则B会构造一个synack的数据包，发送给A作为回应，A在收到synack的回复后，会向B发送确认收到的ack数据包，之后建立连接，返回文件描述符socket，B在收到ack确认后，也会返回对应的文件描述符，表示连接已经建立。到此，A与B正式建立连接，可以相互发送数据包。<br>（在使用postoffice发送和接受数据包时，通过信号量控制，数据包的收发，当收到数据包时，执行P，则继续执行networkLink的接收。当发送数据包时，直到此数据包被丢弃或者接受才会发送下一个数据包）<br><img src="https://img-blog.csdnimg.cn/20200427101524445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200427101528197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>（4）有关出错重传的设计</strong><br>在packet的发送类中，定义一个数据结构，存储未收到确认的消息，在接收消息时，会根据收到数据包的序列号，以及状态码，判断是否数据包，还是确认收到数据的数据包。如果是确认收到数据的数据包，则会将刚刚发送的数据，从未收到消息确认的队列中删除，如果是其他需要进行确认的数据包，则向来源发送确认收到数据包的消息。<br>会在packet的发送类中，单独开启一个线程，将未收到确认的数据包重新发送。<br><img src="https://img-blog.csdnimg.cn/20200427101541101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200427101544195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>而在消息包的收发时，需要根据数据包的序列号，以及状态判断它是数据包，或者确认收到数据的数据包，如果是确认收到数据的数据包，则将那数据从为发送列表中删除，如果是其他数据包，则发送确认收到数据包的消息。<br><img src="https://img-blog.csdnimg.cn/20200427101555562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>【3】task2:实现网络聊天应用程序</strong><br><strong>【3.1】要求分析</strong><br>通过使用消息传递的系统调用在多个（至少3个）用户之间实现“网络聊天”应用程序，演示您的消息传递系统调用的工作。</p>
+<p>你应该编写两个程序：一个聊天服务器（chat server.c）和一个聊天客户端（chat.c）。服务器在一个节点上运行，接受来自聊天客户端的连接。聊天客户端连接到聊天服务器并接受来自控制台的用户输入。用户键入一行文本后，该行将传输到聊天服务器。然后，服务器将消息广播给与之连接的所有客户端。然后，聊天客户端接收到的每条消息都应显示在控制台上。用户可以动态连接和断开与聊天室的连接。<br><strong>【3.2】实现方式</strong><br>对于chatserver，需要循环进行accept，看是否有客户端请求建立连接，如果有连接，则建立连接，并且保存连接的标记。<br>每次循环都会判读是否收到数据，如果收到的数据，会将收到的数据进行广播。<br><img src="https://img-blog.csdnimg.cn/20200427101615163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>客户端程序chat.c，先请求服务器连接，然后返回连接的socket，之后不断的读取控制台的输出，如果读到了，就将其发送给服务端，然后进行广播。<br><img src="https://img-blog.csdnimg.cn/20200427101628219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/05/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj4/" data-id="ckutylm87001g0eru7kwi85vq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/10/Arithmetic-LeetCode/Arithmetic-LeetCode-Tree-Easy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          leetcode刷题——树（简单）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/04/Undergraduate-Curriculum-Design/CurriculumDesign-OS-proj3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">操作系统课程设计-nachos（java版） Project3:Caching and Virtual Memory</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/PTA%E7%94%B2%E7%BA%A7%E5%88%B7%E9%A2%98/">PTA甲级刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode%E5%88%B7%E9%A2%98/">leetcode刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0/">爬虫学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/">论文复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyquery/" rel="tag">pyquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" rel="tag">多文档摘要</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag">模拟网络请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag">深度学习框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" rel="tag">网页解析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 17.78px;">c++</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/java/" style="font-size: 14.44px;">java</a> <a href="/tags/pyquery/" style="font-size: 10px;">pyquery</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/pytorch/" style="font-size: 15.56px;">pytorch</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/vue/" style="font-size: 11.11px;">vue</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/tags/%E5%9B%BE/" style="font-size: 10px;">图</a> <a href="/tags/%E5%A4%9A%E6%96%87%E6%A1%A3%E6%91%98%E8%A6%81/" style="font-size: 10px;">多文档摘要</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.33px;">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.11px;">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%A0%91/" style="font-size: 12.22px;">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 10px;">模拟</a> <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" style="font-size: 11.11px;">模拟网络请求</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 14.44px;">深度学习</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" style="font-size: 18.89px;">深度学习框架</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 15.56px;">爬虫</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.78px;">算法</a> <a href="/tags/%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90/" style="font-size: 10px;">网页解析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/">Pytorch强化学习算法实现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">PyTorch常用工具模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/">Pytorch中神经网络工具箱nn模块</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Autograd/">Pytorch中的Autograd</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/09/Pytorch/Pytorch-and-Tensor/">Pytorch中的Tensor</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 ccclll777<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
