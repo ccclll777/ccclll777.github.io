@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch常用工具模块">
+<meta property="og:url" content="http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/index.html">
+<meta property="og:site_name" content="ccclll777&#39;s blogs">
+<meta property="og:description" content="在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-09T13:32:23.000Z">
+<meta property="article:modified_time" content="2021-10-16T09:33:23.145Z">
+<meta property="article:author" content="ccclll777">
+<meta property="article:tag" content="深度学习框架">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pytorch">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PyTorch常用工具模块 | ccclll777's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="ccclll777's blogs" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<a target="_blank" rel="noopener" href="https://github.com/ccclll777" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">ccclll777's blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ccclll777">
+      <meta itemprop="description" content="胸怀猛虎 细嗅蔷薇">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ccclll777's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch常用工具模块
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-09 21:32:23" itemprop="dateCreated datePublished" datetime="2020-12-09T21:32:23+08:00">2020-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-16 17:33:23" itemprop="dateModified" datetime="2021-10-16T17:33:23+08:00">2021-10-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。<br><span id="more"></span></p>
+<h1 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h1><p>在解决深度学习问题的过程中，往往需要花费大量的精力去处理数据，包括图像、文本、语音或其它二进制数据等。数据的处理对训练神经网络来说十分重要，良好的数据处理不仅会加速模型训练，更会提高模型效果。考虑到这点，PyTorch提供了几个高效便捷的工具，以便使用者进行数据处理或增强等操作，同时可通过并行化加速数据加载。</p>
+<h2 id="数据加载"><a href="#数据加载" class="headerlink" title="数据加载"></a>数据加载</h2><p>在PyTorch中，数据加载可通过自定义的数据集对象。数据集对象被抽象为<code>Dataset</code>类，实现自定义的数据集需要继承Dataset，并实现两个Python魔法方法：</p>
+<ul>
+<li><code>__getitem__</code>：返回一条数据，或一个样本。<code>obj[index]</code>等价于<code>obj.__getitem__(index)</code></li>
+<li><code>__len__</code>：返回样本的数量。<code>len(obj)</code>等价于<code>obj.__len__()</code></li>
+</ul>
+<p>这里我们以Kaggle经典挑战赛<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/dogs-vs-cats/">“Dogs vs. Cat”</a>的数据为例，来了解如何处理数据。”Dogs vs. Cats”是一个分类问题，判断一张图片是狗还是猫，其所有图片都存放在一个文件夹下，根据文件名的前缀判断是狗还是猫。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span>  Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DogCat</span>(<span class="params">data.Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        imgs = os.listdir(root)</span><br><span class="line">        <span class="comment"># 所有图片的绝对路径</span></span><br><span class="line">        <span class="comment"># 这里不实际加载图片，只是指定路径，当调用__getitem__时才会真正读图片</span></span><br><span class="line">        self.imgs = [os.path.join(root, img) <span class="keyword">for</span> img <span class="keyword">in</span> imgs]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        img_path = self.imgs[index]</span><br><span class="line">        <span class="comment">#判断是什么dog-&gt;1， cat-&gt;0</span></span><br><span class="line">        label = <span class="number">1</span> <span class="keyword">if</span> <span class="string">&#x27;dog&#x27;</span> <span class="keyword">in</span> img_path.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>] <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment">#打开图片</span></span><br><span class="line">        pil_img = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">        <span class="comment">#将图片转化成像素矩阵</span></span><br><span class="line">        array = np.asarray(pil_img)</span><br><span class="line">        <span class="comment">#将矩阵转化成tensor</span></span><br><span class="line">        data = t.from_numpy(array)</span><br><span class="line">        <span class="keyword">return</span> data, label</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.imgs)</span><br><span class="line">dataset = DogCat(<span class="string">&#x27;./data/dogcat/&#x27;</span>)</span><br><span class="line">img, label = dataset[<span class="number">0</span>] <span class="comment"># 相当于调用dataset.__getitem__(0)</span></span><br><span class="line"><span class="keyword">for</span> img, label <span class="keyword">in</span> dataset:</span><br><span class="line">    print(img.size(), img.<span class="built_in">float</span>().mean(), label)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过上面的代码，我们学习了如何自定义自己的数据集，并可以依次获取。但这里返回的数据不适合实际使用，因其具有如下两方面问题：</p>
+<ul>
+<li>返回样本的形状不一，因每张图片的大小不一样，这对于需要取batch训练的神经网络来说很不友好</li>
+<li>返回样本的数值较大，未归一化至[-1, 1]</li>
+</ul>
+<p>针对上述问题，PyTorch提供了torchvision。它是一个视觉工具包，提供了很多视觉图像处理的工具，其中<code>transforms</code>模块提供了对PIL <code>Image</code>对象和<code>Tensor</code>对象的常用操作。</p>
+<p>对PIL Image的操作包括：</p>
+<ul>
+<li><code>Scale</code>：调整图片尺寸，长宽比保持不变</li>
+<li><code>CenterCrop</code>、<code>RandomCrop</code>、<code>RandomSizedCrop</code>： 裁剪图片</li>
+<li><code>Pad</code>：填充</li>
+<li><code>ToTensor</code>：将PIL Image对象转成Tensor，会自动将[0, 255]归一化至[0, 1]</li>
+</ul>
+<p>对Tensor的操作包括：</p>
+<ul>
+<li>Normalize：标准化，即减均值，除以标准差</li>
+<li>ToPILImage：将Tensor转为PIL Image对象</li>
+</ul>
+<p>如果要对图片进行多个操作，可通过<code>Compose</code>函数将这些操作拼接起来，类似于<code>nn.Sequential</code>。注意，这些操作定义后是以函数的形式存在，真正使用时需调用它的<code>__call__</code>方法，这点类似于<code>nn.Module</code>。例如要将图片调整为$224\times 224$，首先应构建这个操作<code>trans = Resize((224, 224))</code>，然后调用<code>trans(img)</code>。下面我们就用transforms的这些操作来优化上面实现的dataset。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span>  Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms <span class="keyword">as</span> T</span><br><span class="line">transform = T.Compose([</span><br><span class="line">    T.Resize(<span class="number">224</span>), <span class="comment"># 缩放图片(Image)，保持长宽比不变，最短边为224像素</span></span><br><span class="line">    T.CenterCrop(<span class="number">224</span>), <span class="comment"># 从图片中间切出224*224的图片</span></span><br><span class="line">    T.ToTensor(), <span class="comment"># 将图片(Image)转成Tensor，归一化至[0, 1]</span></span><br><span class="line">    T.Normalize(mean=[<span class="number">.5</span>, <span class="number">.5</span>, <span class="number">.5</span>], std=[<span class="number">.5</span>, <span class="number">.5</span>, <span class="number">.5</span>]) <span class="comment"># 标准化至[-1, 1]，规定均值和标准差</span></span><br><span class="line">])</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DogCat</span>(<span class="params">data.Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, root, transforms=<span class="literal">None</span></span>):</span></span><br><span class="line">        imgs = os.listdir(root)</span><br><span class="line">        self.imgs = [os.path.join(root, img) <span class="keyword">for</span> img <span class="keyword">in</span> imgs]</span><br><span class="line">        self.transforms=transforms</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        img_path = self.imgs[index]</span><br><span class="line">        label = <span class="number">0</span> <span class="keyword">if</span> <span class="string">&#x27;dog&#x27;</span> <span class="keyword">in</span> img_path.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>] <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">        data = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">        <span class="keyword">if</span> self.transforms:</span><br><span class="line">            data = self.transforms(data)</span><br><span class="line">        <span class="keyword">return</span> data, label</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.imgs)</span><br><span class="line">dataset = DogCat(<span class="string">&#x27;./data/dogcat/&#x27;</span>, transforms=transform)</span><br><span class="line">img, label = dataset[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> img, label <span class="keyword">in</span> dataset:</span><br><span class="line">    print(img.size(), label)</span><br></pre></td></tr></table></figure><br>除了上述操作之外，transforms还可通过<code>Lambda</code>封装自定义的转换策略。例如想对PIL Image进行随机旋转，则可写成这样<code>trans=T.Lambda(lambda img: img.rotate(random()*360))</code>。</p>
+<p>torchvision已经预先实现了常用的Dataset，包括前面使用过的CIFAR-10，以及ImageNet、COCO、MNIST、LSUN等数据集，可通过诸如<code>torchvision.datasets.CIFAR10</code>来调用，具体使用方法请参看官方文档。在这里介绍一个会经常使用到的Dataset——<code>ImageFolder</code>，它的实现和上述的<code>DogCat</code>很相似。<code>ImageFolder</code>假设所有的文件按文件夹保存，每个文件夹下存储同一个类别的图片，文件夹名为类名，其构造函数如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImageFolder(root, transform&#x3D;None, target_transform&#x3D;None, loader&#x3D;default_loader)</span><br></pre></td></tr></table></figure><br>它主要有四个参数：</p>
+<ul>
+<li><code>root</code>：在root指定的路径下寻找图片</li>
+<li><code>transform</code>：对PIL Image进行的转换操作，transform的输入是使用loader读取图片的返回对象</li>
+<li><code>target_transform</code>：对label的转换</li>
+<li><code>loader</code>：给定路径后如何读取图片，默认读取为RGB格式的PIL Image对象</li>
+</ul>
+<p>label是按照文件夹名顺序排序后存成字典，即{类名:类序号(从0开始)}，一般来说最好直接将文件夹命名为从0开始的数字，这样会和ImageFolder实际的label一致，如果不是这种命名规范，建议看看<code>self.class_to_idx</code>属性以了解label和文件夹名的映射关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision.datasets <span class="keyword">import</span> ImageFolder</span><br><span class="line">dataset = ImageFolder(<span class="string">&#x27;data/dogcat_2/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat文件夹的图片对应label 0，dog对应1</span></span><br><span class="line">dataset.class_to_idx</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 所有图片的路径和对应的label</span></span><br><span class="line">dataset.imgs</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 没有任何的transform，所以返回的还是PIL Image对象</span></span><br><span class="line">dataset[<span class="number">0</span>][<span class="number">1</span>] <span class="comment"># 第一维是第几张图，第二维为1返回label</span></span><br><span class="line">dataset[<span class="number">0</span>][<span class="number">0</span>] <span class="comment"># 为0返回图片数据</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加上transform</span></span><br><span class="line">normalize = T.Normalize(mean=[<span class="number">0.4</span>, <span class="number">0.4</span>, <span class="number">0.4</span>], std=[<span class="number">0.2</span>, <span class="number">0.2</span>, <span class="number">0.2</span>])</span><br><span class="line">transform  = T.Compose([</span><br><span class="line">         T.RandomResizedCrop(<span class="number">224</span>),</span><br><span class="line">         T.RandomHorizontalFlip(),</span><br><span class="line">         T.ToTensor(),</span><br><span class="line">         normalize,</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset = ImageFolder(<span class="string">&#x27;data/dogcat_2/&#x27;</span>, transform=transform)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 深度学习中图片数据一般保存成CxHxW，即通道数x图片高x图片宽</span></span><br><span class="line">dataset[<span class="number">0</span>][<span class="number">0</span>].size()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">to_img = T.ToPILImage()</span><br><span class="line"><span class="comment"># 0.2和0.4是标准差和均值的近似</span></span><br><span class="line">to_img(dataset[<span class="number">0</span>][<span class="number">0</span>]*<span class="number">0.2</span>+<span class="number">0.4</span>)</span><br></pre></td></tr></table></figure>
+<p><code>Dataset</code>只负责数据的抽象，一次调用<code>__getitem__</code>只返回一个样本。前面提到过，在训练神经网络时，最好是对一个batch的数据进行操作，同时还需要对数据进行shuffle和并行加速等。对此，PyTorch提供了<code>DataLoader</code>帮助我们实现这些功能。</p>
+<p>DataLoader的函数定义如下：<br><code>DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, num_workers=0, collate_fn=default_collate, pin_memory=False, drop_last=False)</code></p>
+<ul>
+<li>dataset：加载的数据集(Dataset对象)</li>
+<li>batch_size：batch size</li>
+<li>shuffle:：是否将数据打乱</li>
+<li>sampler： 样本抽样，后续会详细介绍</li>
+<li>num_workers：使用多进程加载的进程数，0代表不使用多进程</li>
+<li>collate_fn： 如何将多个样本数据拼接成一个batch，一般使用默认的拼接方式即可</li>
+<li>pin_memory：是否将数据保存在pin memory区，pin memory中的数据转到GPU会快一些</li>
+<li>drop_last：dataset中的数据个数可能不是batch_size的整数倍，drop_last为True会将多出来不足一个batch的数据丢弃</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">dataloader = DataLoader(dataset, batch_size=<span class="number">3</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">False</span>)</span><br><span class="line">ataiter = <span class="built_in">iter</span>(dataloader)</span><br><span class="line">imgs, labels = <span class="built_in">next</span>(dataiter)</span><br><span class="line">dataiter = <span class="built_in">iter</span>(dataloader)</span><br><span class="line">imgs, labels = <span class="built_in">next</span>(dataiter)</span><br><span class="line">imgs.size() <span class="comment"># batch_size, channel, height, weight</span></span><br></pre></td></tr></table></figure>
+<p>dataloader是一个可迭代的对象，意味着我们可以像使用迭代器一样使用它，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> batch_datas, batch_labels <span class="keyword">in</span> dataloader:</span><br><span class="line">    train()</span><br></pre></td></tr></table></figure><br>或<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataiter = <span class="built_in">iter</span>(dataloader)</span><br><span class="line">batch_datas, batch_labesl = <span class="built_in">next</span>(dataiter)</span><br></pre></td></tr></table></figure><br>在数据处理中，有时会出现某个样本无法读取等问题，比如某张图片损坏。这时在<code>__getitem__</code>函数中将出现异常，此时最好的解决方案即是将出错的样本剔除。如果实在是遇到这种情况无法处理，则可以返回None对象，然后在<code>Dataloader</code>中实现自定义的<code>collate_fn</code>，将空对象过滤掉。但要注意，在这种情况下dataloader返回的batch数目会少于batch_size。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewDogCat</span>(<span class="params">DogCat</span>):</span> <span class="comment"># 继承前面实现的DogCat数据集</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 调用父类的获取函数，即 DogCat.__getitem__(self, index)</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">super</span>(NewDogCat,self).__getitem__(index)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch.utils.data.dataloader <span class="keyword">import</span> default_collate <span class="comment"># 导入默认的拼接方式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_collate_fn</span>(<span class="params">batch</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    batch中每个元素形如(data, label)</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 过滤为None的数据</span></span><br><span class="line">    batch = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x:x[<span class="number">0</span>] <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>, batch))</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(batch) == <span class="number">0</span>: <span class="keyword">return</span> t.Tensor()</span><br><span class="line">    <span class="keyword">return</span> default_collate(batch) <span class="comment"># 用默认方式拼接过滤后的batch数据</span></span><br><span class="line">dataset = NewDogCat(<span class="string">&#x27;data/dogcat_wrong/&#x27;</span>, transforms=transform)</span><br><span class="line">dataset[<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">dataloader = DataLoader(dataset, <span class="number">2</span>, collate_fn=my_collate_fn, num_workers=<span class="number">1</span>,shuffle=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">for</span> batch_datas, batch_labels <span class="keyword">in</span> dataloader:</span><br><span class="line">    print(batch_datas.size(),batch_labels.size())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>来看一下上述batch_size的大小。其中第2个的batch_size为1，这是因为有一张图片损坏，导致其无法正常返回。而最后1个的batch_size也为1，这是因为共有9张（包括损坏的文件）图片，无法整除2（batch_size），因此最后一个batch的数据会少于batch_szie，可通过指定<code>drop_last=True</code>来丢弃最后一个不足batch_size的batch。</p>
+<p>对于诸如样本损坏或数据集加载异常等情况，还可以通过其它方式解决。例如但凡遇到异常情况，就随机取一张图片代替：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewDogCat</span>(<span class="params">DogCat</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">super</span>(NewDogCat, self).__getitem__(index)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            new_index = random.randint(<span class="number">0</span>, <span class="built_in">len</span>(self)-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> self[new_index]</span><br></pre></td></tr></table></figure><br>相比较丢弃异常图片而言，这种做法会更好一些，因为它能保证每个batch的数目仍是batch_size。但在大多数情况下，最好的方式还是对数据进行彻底清洗。</p>
+<p>DataLoader里面并没有太多的魔法方法，它封装了Python的标准库<code>multiprocessing</code>，使其能够实现多进程加速。在此提几点关于Dataset和DataLoader使用方面的建议：</p>
+<ol>
+<li>高负载的操作放在<code>__getitem__</code>中，如加载图片等。</li>
+<li>dataset中应尽量只包含只读对象，避免修改任何可变对象，利用多线程进行操作。</li>
+</ol>
+<p>第一点是因为多进程会并行的调用<code>__getitem__</code>函数，将负载高的放在<code>__getitem__</code>函数中能够实现并行加速。<br>第二点是因为dataloader使用多进程加载，如果在<code>Dataset</code>实现中使用了可变对象，可能会有意想不到的冲突。在多线程/多进程中，修改一个可变对象，需要加锁，但是dataloader的设计使得其很难加锁（在实际使用中也应尽量避免锁的存在），因此最好避免在dataset中修改可变对象。例如下面就是一个不好的例子，在多进程处理中<code>self.num</code>可能与预期不符，这种问题不会报错，因此难以发现。如果一定要修改可变对象，建议使用Python标准库<code>Queue</code>中的相关数据结构。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BadDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.datas = <span class="built_in">range</span>(<span class="number">100</span>)</span><br><span class="line">        self.num = <span class="number">0</span> <span class="comment"># 取数据的次数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        self.num += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> self.datas[index]</span><br></pre></td></tr></table></figure>
+<p>使用Python <code>multiprocessing</code>库的另一个问题是，在使用多进程时，如果主程序异常终止（比如用Ctrl+C强行退出），相应的数据加载进程可能无法正常退出。这时你可能会发现程序已经退出了，但GPU显存和内存依旧被占用着，或通过<code>top</code>、<code>ps aux</code>依旧能够看到已经退出的程序，这时就需要手动强行杀掉进程。建议使用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps x | grep &lt;cmdline&gt; | awk &#39;&#123;print $1&#125;&#39; | xargs kill</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ps x</code>：获取当前用户的所有进程</li>
+<li><code>grep &lt;cmdline&gt;</code>：找到已经停止的PyTorch程序的进程，例如你是通过python train.py启动的，那你就需要写<code>grep &#39;python train.py&#39;</code></li>
+<li><code>awk &#39;&#123;print $1&#125;&#39;</code>：获取进程的pid</li>
+<li><code>xargs kill</code>：杀掉进程，根据需要可能要写成<code>xargs kill -9</code>强制杀掉进程</li>
+</ul>
+<p>在执行这句命令之前，建议先打印确认一下是否会误杀其它进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps x | grep &lt;cmdline&gt; | ps x</span><br></pre></td></tr></table></figure></p>
+<p>PyTorch中还单独提供了一个<code>sampler</code>模块，用来对数据进行采样。常用的有随机采样器：<code>RandomSampler</code>，当dataloader的<code>shuffle</code>参数为True时，系统会自动调用这个采样器，实现打乱数据。默认的是采用<code>SequentialSampler</code>，它会按顺序一个一个进行采样。这里介绍另外一个很有用的采样方法：<br><code>WeightedRandomSampler</code>，它会根据每个样本的权重选取数据，在样本比例不均衡的问题中，可用它来进行重采样。</p>
+<p>构建<code>WeightedRandomSampler</code>时需提供两个参数：每个样本的权重<code>weights</code>、共选取的样本总数<code>num_samples</code>，以及一个可选参数<code>replacement</code>。权重越大的样本被选中的概率越大，待选取的样本数目一般小于全部的样本数目。<code>replacement</code>用于指定是否可以重复选取某一个样本，默认为True，即允许在一个epoch中重复采样某一个数据。如果设为False，则当某一类的样本被全部选取完，但其样本数目仍未达到num_samples时，sampler将不会再从该类中选择数据，此时可能导致<code>weights</code>参数失效。下面举例说明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dataset = DogCat(<span class="string">&#x27;data/dogcat/&#x27;</span>, transforms=transform)</span><br><span class="line"><span class="comment"># 狗的图片被取出的概率是猫的概率的两倍</span></span><br><span class="line"><span class="comment"># 两类图片被取出的概率与weights的绝对大小无关，只和比值有关</span></span><br><span class="line">weights = [<span class="number">2</span> <span class="keyword">if</span> label == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span> <span class="keyword">for</span> data, label <span class="keyword">in</span> dataset]</span><br><span class="line">weights</span><br><span class="line"><span class="keyword">from</span> torch.utils.data.sampler <span class="keyword">import</span>  WeightedRandomSampler</span><br><span class="line">sampler = WeightedRandomSampler(weights,\</span><br><span class="line">                                num_samples=<span class="number">9</span>,\</span><br><span class="line">                                replacement=<span class="literal">True</span>)</span><br><span class="line">dataloader = DataLoader(dataset,</span><br><span class="line">                        batch_size=<span class="number">3</span>,</span><br><span class="line">                        sampler=sampler)</span><br><span class="line"><span class="keyword">for</span> datas, labels <span class="keyword">in</span> dataloader:</span><br><span class="line">    print(labels.tolist())</span><br></pre></td></tr></table></figure>
+<h1 id="计算机视觉工具包：torchvision"><a href="#计算机视觉工具包：torchvision" class="headerlink" title="计算机视觉工具包：torchvision"></a>计算机视觉工具包：torchvision</h1><p>计算机视觉是深度学习中最重要的一类应用，为了方便研究者使用，PyTorch团队专门开发了一个视觉工具包<code>torchvion</code>，这个包独立于PyTorch，需通过<code>pip instal torchvision</code>安装。在之前的例子中我们已经见识到了它的部分功能，这里再做一个系统性的介绍。torchvision主要包含三部分：</p>
+<ul>
+<li>models：提供深度学习中各种经典网络的网络结构以及预训练好的模型，包括<code>AlexNet</code>、VGG系列、ResNet系列、Inception系列等。</li>
+<li>datasets： 提供常用的数据集加载，设计上都是继承<code>torhc.utils.data.Dataset</code>，主要包括<code>MNIST</code>、<code>CIFAR10/100</code>、<code>ImageNet</code>、<code>COCO</code>等。</li>
+<li>transforms：提供常用的数据预处理操作，主要包括对Tensor以及PIL Image对象的操作。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="comment"># 加载预训练好的模型，如果不存在会进行下载</span></span><br><span class="line"><span class="comment"># 预训练好的模型保存在 ~/.torch/models/下面</span></span><br><span class="line">resnet34 = models.resnet34(pretrained=<span class="literal">True</span>, num_classes=<span class="number">1000</span>)</span><br><span class="line"><span class="comment"># 修改最后的全连接层为10分类问题（默认是ImageNet上的1000分类）</span></span><br><span class="line">resnet34.fc=nn.Linear(<span class="number">512</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets</span><br><span class="line"><span class="comment"># 指定数据集路径为data，如果数据集不存在则进行下载</span></span><br><span class="line"><span class="comment"># 通过train=False获取测试集</span></span><br><span class="line">dataset = datasets.MNIST(<span class="string">&#x27;data/&#x27;</span>, download=<span class="literal">True</span>, train=<span class="literal">False</span>, transform=transform)</span><br></pre></td></tr></table></figure>
+<p>Transforms中涵盖了大部分对Tensor和PIL Image的常用处理，这些已在上文提到，这里就不再详细介绍。需要注意的是转换分为两步，第一步：构建转换操作，例如<code>transf = transforms.Normalize(mean=x, std=y)</code>，第二步：执行转换操作，例如<code>output = transf(input)</code>。另外还可将多个处理操作用Compose拼接起来，形成一个处理转换流程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms </span><br><span class="line">to_pil = transforms.ToPILImage()</span><br><span class="line">to_pil(t.randn(<span class="number">3</span>, <span class="number">64</span>, <span class="number">64</span>))</span><br></pre></td></tr></table></figure>
+<p>torchvision还提供了两个常用的函数。一个是<code>make_grid</code>，它能将多张图片拼接成一个网格中；另一个是<code>save_img</code>，它能将Tensor保存成图片。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dataloader = DataLoader(dataset, shuffle=<span class="literal">True</span>, batch_size=<span class="number">16</span>)</span><br><span class="line"><span class="keyword">from</span> torchvision.utils <span class="keyword">import</span> make_grid, save_image</span><br><span class="line">dataiter = <span class="built_in">iter</span>(dataloader)</span><br><span class="line">img = make_grid(<span class="built_in">next</span>(dataiter)[<span class="number">0</span>], <span class="number">4</span>) <span class="comment"># 拼成4*4网格图片，且会转成３通道</span></span><br><span class="line">to_img(img)</span><br><span class="line">save_image(img, <span class="string">&#x27;a.png&#x27;</span>)</span><br><span class="line">Image.<span class="built_in">open</span>(<span class="string">&#x27;a.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h1><p>在PyTorch中，以下对象可以持久化到硬盘，并能通过相应的方法加载到内存中：</p>
+<ul>
+<li>Tensor</li>
+<li>Variable</li>
+<li>nn.Module</li>
+<li>Optimizer</li>
+</ul>
+<p>本质上上述这些信息最终都是保存成Tensor。Tensor的保存和加载十分的简单，使用t.save和t.load即可完成相应的功能。在save/load时可指定使用的pickle模块，在load时还可将GPU tensor映射到CPU或其它GPU上。</p>
+<p>我们可以通过<code>t.save(obj, file_name)</code>等方法保存任意可序列化的对象，然后通过<code>obj = t.load(file_name)</code>方法加载保存的数据。对于Module和Optimizer对象，这里建议保存对应的<code>state_dict</code>，而不是直接保存整个Module/Optimizer对象。Optimizer对象保存的主要是参数，以及动量信息，通过加载之前的动量信息，能够有效地减少模型震荡，下面举例说明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a = t.Tensor(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="keyword">if</span> t.cuda.is_available():</span><br><span class="line">        a = a.cuda(<span class="number">1</span>) <span class="comment"># 把a转为GPU1上的tensor,</span></span><br><span class="line">        t.save(a,<span class="string">&#x27;a.pth&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 加载为b, 存储于GPU1上(因为保存时tensor就在GPU1上)</span></span><br><span class="line">        b = t.load(<span class="string">&#x27;a.pth&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 加载为c, 存储于CPU</span></span><br><span class="line">        c = t.load(<span class="string">&#x27;a.pth&#x27;</span>, map_location=<span class="keyword">lambda</span> storage, loc: storage)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 加载为d, 存储于GPU0上</span></span><br><span class="line">        d = t.load(<span class="string">&#x27;a.pth&#x27;</span>, map_location=&#123;<span class="string">&#x27;cuda:1&#x27;</span>:<span class="string">&#x27;cuda:0&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t.set_default_tensor_type(<span class="string">&#x27;torch.FloatTensor&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> SqueezeNet</span><br><span class="line">model = SqueezeNet()</span><br><span class="line"><span class="comment"># module的state_dict是一个字典</span></span><br><span class="line">model.state_dict().keys()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Module对象的保存与加载</span></span><br><span class="line">t.save(model.state_dict(), <span class="string">&#x27;squeezenet.pth&#x27;</span>)</span><br><span class="line">model.load_state_dict(t.load(<span class="string">&#x27;squeezenet.pth&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer = t.optim.Adam(model.parameters(), lr=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t.save(optimizer.state_dict(), <span class="string">&#x27;optimizer.pth&#x27;</span>)</span><br><span class="line">optimizer.load_state_dict(t.load(<span class="string">&#x27;optimizer.pth&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">all_data = <span class="built_in">dict</span>(</span><br><span class="line">    optimizer = optimizer.state_dict(),</span><br><span class="line">    model = model.state_dict(),</span><br><span class="line">    info = <span class="string">u&#x27;模型和优化器的所有参数&#x27;</span></span><br><span class="line">)</span><br><span class="line">t.save(all_data, <span class="string">&#x27;all.pth&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">all_data = t.load(<span class="string">&#x27;all.pth&#x27;</span>)</span><br><span class="line">all_data.keys()</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/pytorch/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/09/Pytorch/Pytorch-and-torch-nn/" rel="prev" title="Pytorch中神经网络工具箱nn模块">
+      <i class="fa fa-chevron-left"></i> Pytorch中神经网络工具箱nn模块
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/" rel="next" title="Pytorch强化学习算法实现">
+      Pytorch强化学习算法实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">数据加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%B7%A5%E5%85%B7%E5%8C%85%EF%BC%9Atorchvision"><span class="nav-number">2.</span> <span class="nav-text">计算机视觉工具包：torchvision</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">持久化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ccclll777</p>
+  <div class="site-description" itemprop="description">胸怀猛虎 细嗅蔷薇</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ccclll777" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ccclll777" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sdu945860882@gmail.com" title="E-Mail → mailto:sdu945860882@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.weibo.com/6732062654" title="Weibo → https:&#x2F;&#x2F;www.weibo.com&#x2F;6732062654" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/baidu_41871794" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;baidu_41871794" rel="noopener" target="_blank"><i class="gratipay fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ccclll777</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">475k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:12</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
