@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-10-17T05:43:39.354Z</updated>
+  <updated>2021-10-17T12:48:35.910Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Leetcode 282. 给表达式添加运算符</title>
-    <link href="http://yoursite.com/2021/10/16/Arithmetic-LeetCode/282/"/>
-    <id>http://yoursite.com/2021/10/16/Arithmetic-LeetCode/282/</id>
+    <title>Leetcode刷题复盘</title>
+    <link href="http://yoursite.com/2021/10/16/Arithmetic-LeetCode/Leetcode-1/"/>
+    <id>http://yoursite.com/2021/10/16/Arithmetic-LeetCode/Leetcode-1/</id>
     <published>2021-10-16T15:35:16.000Z</published>
-    <updated>2021-10-17T05:43:39.354Z</updated>
+    <updated>2021-10-17T12:48:35.910Z</updated>
     
     <summary type="html">
     
@@ -42,7 +42,7 @@
     <link href="http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/"/>
     <id>http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/</id>
     <published>2020-12-12T02:54:37.000Z</published>
-    <updated>2021-10-17T10:29:22.700Z</updated>
+    <updated>2021-10-17T11:32:29.179Z</updated>
     
     <summary type="html">
     
@@ -67,16 +67,16 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/PyTorch-Commonly-Used-Tool-Modules/</id>
     <published>2020-12-09T13:32:23.000Z</published>
-    <updated>2021-10-17T01:36:25.738Z</updated>
+    <updated>2021-10-17T12:51:54.671Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。本章主要介绍Pytorch在这几方面的工具模块，合理使用这些工具能够极大地提高编码效率。&lt;/p&gt;
+      在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。
     
     </summary>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -92,7 +92,7 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/</id>
     <published>2020-12-09T13:25:38.000Z</published>
-    <updated>2021-10-17T10:28:20.226Z</updated>
+    <updated>2021-10-17T12:51:28.917Z</updated>
     
     <summary type="html">
     
@@ -101,7 +101,7 @@
     </summary>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -117,16 +117,16 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/</id>
     <published>2020-12-09T13:25:19.000Z</published>
-    <updated>2021-10-17T10:27:48.438Z</updated>
+    <updated>2021-10-17T11:49:29.802Z</updated>
     
     <summary type="html">
     
-      回溯
+      介绍Pytorch中的自动微分系统（Autograd）
     
     </summary>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -142,16 +142,16 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Tensor/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Tensor/</id>
     <published>2020-12-09T13:25:08.000Z</published>
-    <updated>2021-10-17T01:36:25.740Z</updated>
+    <updated>2021-10-17T12:50:58.713Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;介绍Pytorch中的张量系统（Tensor）&lt;/p&gt;
+      介绍Pytorch中的张量系统（Tensor）
     
     </summary>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -167,16 +167,16 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/</id>
     <published>2020-12-09T03:45:55.000Z</published>
-    <updated>2021-10-17T10:28:42.791Z</updated>
+    <updated>2021-10-17T12:51:54.670Z</updated>
     
     <summary type="html">
     
-      在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。
+      PyTorch的基础知识
     
     </summary>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -192,16 +192,16 @@
     <link href="http://yoursite.com/2020/12/08/Tensorflow/Tensorflow-and-Reinforcement-learning/"/>
     <id>http://yoursite.com/2020/12/08/Tensorflow/Tensorflow-and-Reinforcement-learning/</id>
     <published>2020-12-08T12:46:47.000Z</published>
-    <updated>2021-10-17T01:36:25.744Z</updated>
+    <updated>2021-10-17T11:42:51.786Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;使用tensorflow框架实现强化学习算法，其中包括Policy Gradient ，A3C，DQN等算法&lt;/p&gt;
+      使用tensorflow框架实现强化学习算法，其中包括Policy Gradient ，A3C，DQN等算法
     
     </summary>
     
     
-      <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+      <category term="深度学习" scheme="http://yoursite.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="深度学习框架" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/"/>
@@ -217,7 +217,7 @@
     <link href="http://yoursite.com/2020/12/07/ReinforcementLearning/Reinforcement-Learning-Basic-Theory/"/>
     <id>http://yoursite.com/2020/12/07/ReinforcementLearning/Reinforcement-Learning-Basic-Theory/</id>
     <published>2020-12-07T06:20:59.000Z</published>
-    <updated>2021-10-17T01:36:25.740Z</updated>
+    <updated>2021-10-17T11:23:09.984Z</updated>
     
     <summary type="html">
     
@@ -238,11 +238,11 @@
     <link href="http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Encoder-Decoder/"/>
     <id>http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Encoder-Decoder/</id>
     <published>2020-12-06T13:39:03.000Z</published>
-    <updated>2021-10-17T01:36:25.743Z</updated>
+    <updated>2021-10-17T11:42:39.494Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;使用Tensorflow实现自编码器&lt;/p&gt;
+      使用Tensorflow实现自编码器
     
     </summary>
     
@@ -263,12 +263,11 @@
     <link href="http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Recurrent-neural-network/"/>
     <id>http://yoursite.com/2020/12/06/Tensorflow/Tensorflow-and-Recurrent-neural-network/</id>
     <published>2020-12-06T07:56:00.000Z</published>
-    <updated>2021-10-17T01:36:25.744Z</updated>
+    <updated>2021-10-17T12:51:54.671Z</updated>
     
     <summary type="html">
     
-      &lt;pre&gt;&lt;code&gt;                                                                使用Tensorflow实现循环神经网络的相关算法
-&lt;/code&gt;&lt;/pre&gt;
+      使用Tensorflow实现循环神经网络的相关算法
     
     </summary>
     
@@ -289,11 +288,11 @@
     <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Convolutional-Neural-Network/"/>
     <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Convolutional-Neural-Network/</id>
     <published>2020-12-04T14:57:37.000Z</published>
-    <updated>2021-10-17T01:36:25.743Z</updated>
+    <updated>2021-10-17T11:42:36.653Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;使用Tensorflow实现卷积神经网络的相关算法&lt;/p&gt;
+      使用Tensorflow实现卷积神经网络的相关算法
     
     </summary>
     
@@ -314,7 +313,7 @@
     <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/"/>
     <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/</id>
     <published>2020-12-04T05:41:13.000Z</published>
-    <updated>2021-10-17T10:37:06.038Z</updated>
+    <updated>2021-10-17T11:42:58.908Z</updated>
     
     <summary type="html">
     
@@ -339,11 +338,11 @@
     <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Neural-Networks/"/>
     <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-and-Neural-Networks/</id>
     <published>2020-12-04T03:22:47.000Z</published>
-    <updated>2021-10-17T01:36:25.743Z</updated>
+    <updated>2021-10-17T11:49:12.467Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;使用Tensorflow2.0构建简单的神经网络&lt;/p&gt;
+      使用Tensorflow2.0构建简单的神经网络
     
     </summary>
     
@@ -364,11 +363,11 @@
     <link href="http://yoursite.com/2020/12/03/Tensorflow/Tensorflow-advanced-knowledge/"/>
     <id>http://yoursite.com/2020/12/03/Tensorflow/Tensorflow-advanced-knowledge/</id>
     <published>2020-12-03T08:44:59.000Z</published>
-    <updated>2021-10-17T01:36:25.742Z</updated>
+    <updated>2021-10-17T12:51:54.671Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Tensorflow2.0的进阶知识&lt;/p&gt;
+      Tensorflow2.0进阶知识
     
     </summary>
     
@@ -389,11 +388,11 @@
     <link href="http://yoursite.com/2020/12/02/Tensorflow/Tensorflow-basic-knowledge/"/>
     <id>http://yoursite.com/2020/12/02/Tensorflow/Tensorflow-basic-knowledge/</id>
     <published>2020-12-02T14:16:51.000Z</published>
-    <updated>2021-10-17T01:36:25.745Z</updated>
+    <updated>2021-10-17T11:42:54.416Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;TensorFlow 是一个面向深度学习算法的科学计算库，内部数据保存在张量(Tensor)对象 上，所有的运算操作(Operation，简称 OP)也都是基于张量对象进行的。这里介绍Tensorflow2.0的基础操作方法。&lt;/p&gt;
+      Tensorflow2.0的基础操作方法
     
     </summary>
     
