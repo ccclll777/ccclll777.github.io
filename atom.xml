@@ -42,11 +42,11 @@
     <link href="http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/"/>
     <id>http://yoursite.com/2020/12/12/Pytorch/Pytorch-Reinforcement-Learning-Algorithm/</id>
     <published>2020-12-12T02:54:37.000Z</published>
-    <updated>2021-10-17T01:36:25.739Z</updated>
+    <updated>2021-10-17T10:29:22.700Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;使用Pytorch框架实现了强化学习算法Policy Gradient/DQN/DDGP&lt;/p&gt;
+      使用Pytorch框架实现了强化学习算法Policy Gradient/DQN/DDGP
     
     </summary>
     
@@ -92,11 +92,11 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-torch-nn/</id>
     <published>2020-12-09T13:25:38.000Z</published>
-    <updated>2021-10-17T01:36:25.740Z</updated>
+    <updated>2021-10-17T10:28:20.226Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;torch.nn专门为深度学习而设计的模块。torch.nn的核心数据结构是&lt;code&gt;Module&lt;/code&gt;，它是一个抽象概念，既可以表示神经网络中的某个层（layer），也可以表示一个包含很多层的神经网络。在实际使用中，最常见的做法是继承&lt;code&gt;nn.Module&lt;/code&gt;，撰写自己的网络层.&lt;/p&gt;
+      torch.nn专门为深度学习而设计的模块。
     
     </summary>
     
@@ -117,13 +117,11 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-and-Autograd/</id>
     <published>2020-12-09T13:25:19.000Z</published>
-    <updated>2021-10-17T10:16:35.105Z</updated>
+    <updated>2021-10-17T10:27:48.438Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;介绍Pytorch中的自动微分系统（Autograd）&lt;br /&gt;
-用Tensor训练网络很方便，但从上一小节最后的线性回归例子来看，反向传播过程需要手动实现。这对于像线性回归等较为简单的模型来说，还可以应付，但实际使用中经常出现非常复杂的网络结构，此时如果手动实现反向传播，不仅费时费力，而且容易出错，难以检查。torch.autograd就是为方便用户使用，而专门开发的一套自动求导引擎，它能够根据输入和前向传播过程自动构建计算图，并执行反向传播。&lt;/p&gt;
-&lt;p&gt;计算图(Computation Graph)是现代深度学习框架如PyTorch和TensorFlow等的核心，其为高效自动求导算法——反向传播(Back Propogation)提供了理论支持，了解计算图在实际写程序过程中会有极大的帮助。本节将涉及一些基础的计算图知识，但并不要求读者事先对此有深入的了解。&lt;/p&gt;
+      回溯
     
     </summary>
     
@@ -169,11 +167,11 @@
     <link href="http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/"/>
     <id>http://yoursite.com/2020/12/09/Pytorch/Pytorch-Introductory-knowledge/</id>
     <published>2020-12-09T03:45:55.000Z</published>
-    <updated>2021-10-17T01:36:25.738Z</updated>
+    <updated>2021-10-17T10:28:42.791Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;PyTorch的简洁设计使得它入门很简单，在深入介绍PyTorch之前，本节将先介绍一些PyTorch的基础知识，使得读者能够对PyTorch有一个大致的了解，并能够用PyTorch搭建一个简单的神经网络。&lt;/p&gt;
+      在训练神经网络过程中，需要用到很多工具，其中最重要的三部分是：数据、可视化和GPU加速。
     
     </summary>
     
@@ -316,11 +314,11 @@
     <link href="http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/"/>
     <id>http://yoursite.com/2020/12/04/Tensorflow/Tensorflow-Keras-high-level-interface/</id>
     <published>2020-12-04T05:41:13.000Z</published>
-    <updated>2021-10-17T10:23:04.813Z</updated>
+    <updated>2021-10-17T10:37:06.038Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;TensorFlow中的子模块 tf.keras中快速构建神经网络的高层接口&lt;/p&gt;
+      TensorFlow中的子模块 tf.keras中快速构建神经网络的高层接口
     
     </summary>
     
