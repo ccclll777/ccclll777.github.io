@@ -34,10 +34,10 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181110132207679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181110135028548.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2018-11-10T05:52:34.000Z">
-<meta property="article:modified_time" content="2021-10-16T09:34:25.460Z">
+<meta property="article:modified_time" content="2021-10-17T01:36:25.741Z">
 <meta property="article:author" content="ccclll777">
-<meta property="article:tag" content="爬虫">
 <meta property="article:tag" content="python">
+<meta property="article:tag" content="爬虫">
 <meta property="article:tag" content="模拟网络请求">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181110103749589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70">
@@ -208,7 +208,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-16 17:34:25" itemprop="dateModified" datetime="2021-10-16T17:34:25+08:00">2021-10-16</time>
+                <time title="修改时间：2021-10-17 09:36:25" itemprop="dateModified" datetime="2021-10-17T09:36:25+08:00">2021-10-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,7 +226,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.9k</span>
+              <span>6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -250,47 +250,47 @@
 <li>request库基于urllib，比urllib更加方便，是Python更加简单的http库。</li>
 <li>使用request库的一个例子：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(type(response))#返回值的类型</span><br><span class="line">print(response.status_code)#当前网站返回的状态码</span><br><span class="line">print(type(response.text))#网页内容的类型</span><br><span class="line">print(response.text)#网页的具体内容（html代码）</span><br><span class="line">print(response.cookies)#网页的cookie</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(type(response))#返回值的类型</span><br><span class="line">print(response.status_code)#当前网站返回的状态码</span><br><span class="line">print(type(response.text))#网页内容的类型</span><br><span class="line">print(response.text)#网页的具体内容（html代码）</span><br><span class="line">print(response.cookies)#网页的cookie</span><br></pre></td></tr></table></figure>
 <p>具体解释写在了注释里面，request中输出网页的html代码的方法是response.text方法，它相当于urllib库的response.read方法，只不过不需要进行decode操作。<br>打印cookie的操作也比urllib简单，只需要使用.cookie方法即可。<br>执行结果如下：<br><img src="https://img-blog.csdnimg.cn/20181110103749589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li>各种请求方式</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">requests.post(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;)</span><br><span class="line">requests.delete(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;delete&#39;)</span><br><span class="line">requests.put(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;put&#39;)</span><br><span class="line">requests.head(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">requests.options(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">requests.post(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;)</span><br><span class="line">requests.delete(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;delete&#39;)</span><br><span class="line">requests.put(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;put&#39;)</span><br><span class="line">requests.head(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">requests.options(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br></pre></td></tr></table></figure>
 <p>这里的请求返回值可以去<a target="_blank" rel="noopener" href="http://httpbin.org获取，这个网站可以用来进行http请求的测试。">http://httpbin.org获取，这个网站可以用来进行http请求的测试。</a></p>
 <h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ul>
 <li>基本的GET请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>这是request中最简单的get请求。</p>
 <ul>
 <li>带参数的GET请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get?name&#x3D;germey&amp;age&#x3D;22&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get?name&#x3D;germey&amp;age&#x3D;22&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>其中<a target="_blank" rel="noopener" href="http://httpbin.org/get后面的部分为get方法的基本构成，不清楚的可以去了解一下，以上代码会返回get请求参数。">http://httpbin.org/get后面的部分为get方法的基本构成，不清楚的可以去了解一下，以上代码会返回get请求参数。</a></p>
 <p>如果不想构造url，那么requeat库中有一个params参数，可以传入一个字典，他会给你自动拼接到url后面，例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">data &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;germey&#39;,</span><br><span class="line">    &#39;age&#39;:&#39;22&#39;</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,params&#x3D;data)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">data &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;germey&#39;,</span><br><span class="line">    &#39;age&#39;:&#39;22&#39;</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;,params&#x3D;data)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>这样就能构造一个get请求参数，和上面返回的内容相同。</p>
 <ul>
 <li>解析json</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">print(type(response.text))</span><br><span class="line">print(response.json())</span><br><span class="line">print(json.loads(response.text))</span><br><span class="line">print(response.text)</span><br><span class="line">print(type(response.json()))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;get&#39;)</span><br><span class="line">print(type(response.text))</span><br><span class="line">print(response.json())</span><br><span class="line">print(json.loads(response.text))</span><br><span class="line">print(response.text)</span><br><span class="line">print(type(response.json()))</span><br></pre></td></tr></table></figure>
 <p>response.json()与json.loads ()返回的结果完全相同，在使用ajax请求时比较常用。</p>
 <ul>
 <li>获取二进制数据<br>在下载图片或者视频时，常用的方法，获取图片或者视频的二进制数据。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&quot;https:&#x2F;&#x2F;github.com&#x2F;favicon.ico&quot;)</span><br><span class="line">print(type(response.text),type(response.content))</span><br><span class="line">print(response.text)</span><br><span class="line">print(response.content)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&quot;https:&#x2F;&#x2F;github.com&#x2F;favicon.ico&quot;)</span><br><span class="line">print(type(response.text),type(response.content))</span><br><span class="line">print(response.text)</span><br><span class="line">print(response.content)</span><br></pre></td></tr></table></figure>
 <p>这里打印出了当前网址图片的二进制数据</p>
 <p>也可以用以下方法之间把图片下载下来，保存成图片属性：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&quot;https:&#x2F;&#x2F;github.com&#x2F;favicon.ico&quot;)</span><br><span class="line">with open(&#39;facicon.ico&#39;,&#39;wb&#39;) as f:</span><br><span class="line">    f.write(response.content)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&quot;https:&#x2F;&#x2F;github.com&#x2F;favicon.ico&quot;)</span><br><span class="line">with open(&#39;facicon.ico&#39;,&#39;wb&#39;) as f:</span><br><span class="line">    f.write(response.content)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>添加headers<br>在写爬虫时，如果不加header参数，当前网站就会把你当成爬虫，然后禁止你访问，加入headers可以有效的避免。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">url &#x3D; &#39;https:&#x2F;&#x2F;www.zhihu.com&#x2F;explore&#39;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.get(url,headers)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url &#x3D; &#39;https:&#x2F;&#x2F;www.zhihu.com&#x2F;explore&#39;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.get(url,headers)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>User-Agent的参数时浏览器信息，加上headers能让服务器认为你是浏览器访问的而不是爬虫访问的，实现了浏览器的伪装。</p>
 <h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ul>
 <li>基本的POST请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">data &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;germey&#39;,</span><br><span class="line">    &#39;age&#39;:&#39;22&#39;</span><br><span class="line">&#125;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;</span><br><span class="line">response &#x3D; requests.post(url,data,headers)</span><br><span class="line">print(response.json())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">data &#x3D; &#123;</span><br><span class="line">    &#39;name&#39;:&#39;germey&#39;,</span><br><span class="line">    &#39;age&#39;:&#39;22&#39;</span><br><span class="line">&#125;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#39;Host&#39;:&#39;httpbin.org&#39;</span><br><span class="line">&#125;</span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;httpbin.org&#x2F;post&#39;</span><br><span class="line">response &#x3D; requests.post(url,data,headers)</span><br><span class="line">print(response.json())</span><br></pre></td></tr></table></figure>
 <p>POST请求和GET请求的区别就是，需要穿入一个form表单，使用request库可以将表单构造成字典类型，之后传入。</p>
 <ul>
 <li>其他的POST方法个GET方法相同，只需要将request.get换成request.post即可</li>
@@ -298,30 +298,30 @@
 <h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><ul>
 <li>response属性</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.jianshu.com&#39;)</span><br><span class="line">print(type(response.status_code), response.status_code)</span><br><span class="line">print(type(response.headers), response.headers)</span><br><span class="line">print(type(response.cookies), response.cookies)</span><br><span class="line">print(type(response.url), response.url)</span><br><span class="line">print(type(response.history), response.history)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.jianshu.com&#39;)</span><br><span class="line">print(type(response.status_code), response.status_code)</span><br><span class="line">print(type(response.headers), response.headers)</span><br><span class="line">print(type(response.cookies), response.cookies)</span><br><span class="line">print(type(response.url), response.url)</span><br><span class="line">print(type(response.history), response.history)</span><br></pre></td></tr></table></figure>
 <p>这些是常用的response返回结果。</p>
 <ul>
 <li>状态码的判断</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.jianshu.com&#39;)</span><br><span class="line">exit()if not response.status_code &#x3D;&#x3D;requests.codes.ok else print(&#39;成功访问&#39;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.jianshu.com&#39;)</span><br><span class="line">exit()if not response.status_code &#x3D;&#x3D;requests.codes.ok else print(&#39;成功访问&#39;)</span><br></pre></td></tr></table></figure>
 <p>这里使用requests.codes.ok可以用名字调用相应的状态码。<br>这里还有其他状态码对应的名字：<br><img src="https://img-blog.csdnimg.cn/20181110131007522.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p> <img src="https://img-blog.csdnimg.cn/20181110131025974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/20181110131037240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h2><ul>
 <li>文件上传</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">file &#x3D; &#123;</span><br><span class="line">    &#39;file&#39;:open(&#39;文件名称&#39;,&#39;rb&#39;)</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.post(&quot;网址&quot;,file)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">file &#x3D; &#123;</span><br><span class="line">    &#39;file&#39;:open(&#39;文件名称&#39;,&#39;rb&#39;)</span><br><span class="line">&#125;</span><br><span class="line">response &#x3D; requests.post(&quot;网址&quot;,file)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>在文件名称处写入要穿入文件的目录。</p>
 <ul>
 <li>获取cooike</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;https:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(response.cookies)</span><br><span class="line">for key,value in response.cookies.items():</span><br><span class="line">    print(key+&quot;&#x3D;&quot;+value)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;https:&#x2F;&#x2F;www.baidu.com&#39;)</span><br><span class="line">print(response.cookies)</span><br><span class="line">for key,value in response.cookies.items():</span><br><span class="line">    print(key+&quot;&#x3D;&quot;+value)</span><br></pre></td></tr></table></figure>
 <p>可以将cookie使用key  value的形式打印出来</p>
 <ul>
 <li>会话维持<br>获取到cookie后，就可以进行模拟登陆操作了</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">s &#x3D; requests.Session()</span><br><span class="line">s.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;cookies&#x2F;set&#x2F;number&#x2F;123456789&#39;)</span><br><span class="line">response &#x3D; s.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;cookies&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">s &#x3D; requests.Session()</span><br><span class="line">s.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;cookies&#x2F;set&#x2F;number&#x2F;123456789&#39;)</span><br><span class="line">response &#x3D; s.get(&#39;http:&#x2F;&#x2F;httpbin.org&#x2F;cookies&#39;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>输出结果为：<br><img src="https://img-blog.csdnimg.cn/20181110132207679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="
 "></p>
 <p>这里我们使用session保存了当前的cookie，让服务器认为是一台浏览器发起的请求，就可以成功打印出cookie。</p>
@@ -329,26 +329,26 @@
 <li>如果要模型登录验证时，就可以使用requests.Session()来发起请求，他可以模拟浏览器对服务器进行请求，维持了登录会话</li>
 <li>证书验证<br>如果访问用request请求访问https协议的网站时，他会首先检测证书是否合法，如果检测不合法，就会抛出错误。<br>如果想要避免错误，只需要把request中的verify设置为false，就可以了。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;https:&#x2F;&#x2F;www.12306.cn&#39;,verify &#x3D; False)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">response &#x3D; requests.get(&#39;https:&#x2F;&#x2F;www.12306.cn&#39;,verify &#x3D; False)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
 <p>会返回200，表示正常连接。</p>
 <ul>
 <li>代理设置</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">proxys &#x3D; (&#123;</span><br><span class="line">    &#39;http&#39;:&#39;http:&#x2F;&#x2F;127.0.0.1&#39;,</span><br><span class="line">    &#39;https&#39;:&#39;https:&#x2F;&#x2F;127.0.0.1&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,proxys)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">proxys &#x3D; (&#123;</span><br><span class="line">    &#39;http&#39;:&#39;http:&#x2F;&#x2F;127.0.0.1&#39;,</span><br><span class="line">    &#39;https&#39;:&#39;https:&#x2F;&#x2F;127.0.0.1&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,proxys)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
 <p>注意：proxys中的参数是你自己代理的ip地址，需要修改</p>
 <ul>
 <li>超时设置</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,timeout &#x3D;1)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,timeout &#x3D;1)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
 <p>使用timeout参数设置超时时间，如果访问网站时超过这个时间，则会报错。</p>
 <p>我们可以加一个try -except来捕获异常</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">from requests.exceptions import ReadTimeout</span><br><span class="line">try:</span><br><span class="line">    response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,timeout &#x3D;1)</span><br><span class="line">    print(response.status_code)</span><br><span class="line">except ReadTimeout:</span><br><span class="line">    print(&#39;Timeout&#39;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from requests.exceptions import ReadTimeout</span><br><span class="line">try:</span><br><span class="line">    response &#x3D; requests.get(&#39;http:&#x2F;&#x2F;www.baidu.com&#39;,timeout &#x3D;1)</span><br><span class="line">    print(response.status_code)</span><br><span class="line">except ReadTimeout:</span><br><span class="line">    print(&#39;Timeout&#39;)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>认证设置<br>有些网站登录时需要验证用户名和密码，比如<br><img src="https://img-blog.csdnimg.cn/20181110135028548.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JhaWR1XzQxODcxNzk0,size_16,color_FFFFFF,t_70" alt="
 "></li>
 </ul>
 <p>如果遇到这种网站，则可以使用如下方法完成正常请求：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">from requests.auth import HTTPBasicAuth</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;需要访问的网址&#39;,auth &#x3D; HTTPBasicAuth(&#39;用户名&#39;,&#39;密码&#39;))</span><br><span class="line">print(response.status_code)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">from requests.auth import HTTPBasicAuth</span><br><span class="line"></span><br><span class="line">response &#x3D; requests.get(&#39;需要访问的网址&#39;,auth &#x3D; HTTPBasicAuth(&#39;用户名&#39;,&#39;密码&#39;))</span><br><span class="line">print(response.status_code)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>Python3的request库比起urllib库更加方便好用，在写爬虫时会经常用到</p>
 
     </div>
@@ -368,8 +368,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i></a>
               <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i></a>
               <a href="/tags/%E6%A8%A1%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
@@ -522,13 +522,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">456k</span>
+    <span title="站点总字数">476k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">7:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
