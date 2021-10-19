@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-10-18T14:38:28.888Z</updated>
+  <updated>2021-10-19T09:47:47.278Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2021/10/16/Arithmetic-LeetCode/Leetcode-1/"/>
     <id>http://yoursite.com/2021/10/16/Arithmetic-LeetCode/Leetcode-1/</id>
     <published>2021-10-16T15:35:16.000Z</published>
-    <updated>2021-10-18T14:38:28.888Z</updated>
+    <updated>2021-10-19T09:47:47.278Z</updated>
     
     <summary type="html">
     
@@ -453,16 +453,16 @@
   </entry>
   
   <entry>
-    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第四周：深层神经网络(Deep Neural Networks)</title>
-    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/"/>
-    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/</id>
+    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)</title>
+    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/"/>
+    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/</id>
     <published>2020-09-27T08:21:21.000Z</published>
     <updated>2021-10-17T01:36:25.733Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br /&gt;
-&lt;strong&gt;第四周：深层神经网络(Deep Neural Networks)笔记&lt;/strong&gt;&lt;/p&gt;
+&lt;strong&gt;第一周 深度学习引言(Introduction to Deep Learning)笔记&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -475,16 +475,16 @@
   </entry>
   
   <entry>
-    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第一周 深度学习引言(Introduction to Deep Learning)</title>
-    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/"/>
-    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-IntroductiontoDeepLearning-1/</id>
+    <title>神经网络和深度学习(Neural Networks and Deep Learning) 第四周：深层神经网络(Deep Neural Networks)</title>
+    <link href="http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/"/>
+    <id>http://yoursite.com/2020/09/27/%20AndrewNg-deeplearning-ai/AndrewNg-deepinglearning-ai-note-NeuralNetworksandDeepLearning-DeepNeuralNetworks/</id>
     <published>2020-09-27T08:21:21.000Z</published>
     <updated>2021-10-17T01:36:25.733Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;吴恩达老师深度学习公开课第一门课————神经网络和深度学习(Neural Networks and Deep Learning)&lt;br /&gt;
-&lt;strong&gt;第一周 深度学习引言(Introduction to Deep Learning)笔记&lt;/strong&gt;&lt;/p&gt;
+&lt;strong&gt;第四周：深层神经网络(Deep Neural Networks)笔记&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
